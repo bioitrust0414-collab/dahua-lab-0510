@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MitoActiveLife 活「粒」生活 - 兒童與全家人的專業複合鈣</title>
+    <!-- 引入 Tailwind CSS 運行時 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 React, ReactDOM 運行時 -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- 引入 Babel 用於瀏覽器中編譯 JSX -->
+    <script src="https://unpkg.com/@babel/standalone@7.23.3/babel.min.js"></script>
+    <!-- 引入 Lucide 圖標 CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+        
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.35; transform: scale(1) translate(-50%, -50%); }
+            50% { opacity: 0.5; transform: scale(1.1) translate(-48%, -48%); }
+        }
+        .bg-glow-emerald { animation: pulseGlow 8s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function App() {
+          const [activeTab, setActiveTab] = React.useState('all');
+          const [selectedLeader, setSelectedLeader] = React.useState(null);
+          const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+          const [academyTab, setAcademyTab] = React.useState('manifesto');
+          const [selectedEmotion, setSelectedEmotion] = React.useState('growth');
+          const [flippedObjection, setFlippedObjection] = React.useState(null);
+
+          // 科學實證模擬變量：優質原料與協同因子對吸收與發育的正面影響
+          const [nutritionSynergy, setNutritionSynergy] = React.useState(60); // 營養協同活性
+          const [quadCalcium, setQuadCalcium] = React.useState(50);         // 四重複合鈣源輸入
+          const [vitD3K2, setVitD3K2] = React.useState(50);                 // D3+K2 導航因子
+          const [flavorAcceptance, setFlavorAcceptance] = React.useState(true); // 水果風味依從性
+          
+          const [absorptionRate, setAbsorptionRate] = React.useState(50);
+          const [boneDensityRate, setBoneDensityRate] = React.useState(50);
+          const [comfortRatio, setComfortRatio] = React.useState(90);
+
+          React.useEffect(() => {
+            const isSynergyIgnited = nutritionSynergy > 45;
+            const rawAbsorb = (quadCalcium * 0.5) + (vitD3K2 * 0.5);
+            const finalAbsorb = isSynergyIgnited ? Math.min(95, rawAbsorb * 1.2 + 10) : rawAbsorb * 0.6;
+            setAbsorptionRate(Math.round(finalAbsorb));
+            
+            const finalBone = Math.round((finalAbsorb * 0.7) + (vitD3K2 * 0.3) + (flavorAcceptance ? 5 : 0));
+            setBoneDensityRate(Math.min(100, finalBone));
+            
+            let baseComfort = 70;
+            baseComfort += (quadCalcium / 100) * 20 + (flavorAcceptance ? 10 : 0);
+            setComfortRatio(Math.min(100, baseComfort));
+          }, [nutritionSynergy, quadCalcium, vitD3K2, flavorAcceptance]);
+
+          React.useEffect(() => {
+            if (window.lucide) lucide.createIcons();
+          }, [activeTab, academyTab, selectedEmotion, flippedObjection, selectedLeader]);
+
+          const leaders = [
+            {
+              id: 'l1',
+              category: 'exec',
+              name: 'Dr. Evelyn Carter',
+              title: '聯合創始人 兼 首席執行官 (CEO)',
+              role: '執行領袖',
+              education: '生物醫學工程博士',
+              experience: '20 年以上小兒營養與生技管理經驗，致力於將純淨、高效的天然大健康營養方案帶入家庭。',
+              quote: '我們不只是在提供單一骨骼原料，更是透過科學協同配方，全方位支援孩子與家人的健康發育。',
+              skills: ['兒童發育戰略', '全球營養管理', '生技創投'],
+              avatarBg: 'bg-gradient-to-br from-teal-50 to-emerald-100'
+            },
+            {
+              id: 'l2',
+              category: 'science',
+              name: 'Prof. Marcus Vance',
+              title: '首席科學家 兼 科學顧問委員會主席',
+              role: '科學顧問',
+              education: '細胞生物學教授',
+              experience: '發表超過 80 篇關於植物源營養素、天然鈣質高效利用與骨骼發育協同機制的國際期刊論文。',
+              quote: '補鈣不應盲目追求含量，溫和、好吸收、多重釋放曲线的配方設計才是守護健康的關鍵。',
+              skills: ['發育營養學', '植物源鎖鈣鏈', '四重複合鈣源'],
+              avatarBg: 'bg-gradient-to-br from-emerald-50 to-teal-100'
+            }
+          ];
+
+          const filteredLeaders = activeTab === 'all' ? leaders : leaders.filter(l => l.category === activeTab);
+
+          return (
+            <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-emerald-100 selection:text-emerald-800 overflow-x-hidden">
+              
+              {/* 導航列 */}
+              <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/80 transition-all">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                  <a href="#" className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-400 via-teal-300 to-cyan-400 flex items-center justify-center shadow-md shadow-emerald-400/20 group-hover:scale-105 transition-transform">
+                      <i data-lucide="sparkles" className="w-5.5 h-5.5 text-white font-bold"></i>
+                    </div>
+                    <div>
+                      <span className="text-xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-600 bg-clip-text text-transparent">
+                        MitoActiveLife
+                      </span>
+                      <span className="block text-[10px] uppercase tracking-widest text-slate-400 font-bold leading-none mt-0.5">
+                        活「粒」生活 · 全方位家庭發育營養科學
+                      </span>
+                    </div>
+                  </a>
+
+                  <nav className="hidden xl:flex items-center gap-6">
+                    <a href="#science" className="text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors">黃金協同技術</a>
+                    <a href="#oem-process" className="text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors">專業生產製程</a>
+                    <a href="#lab" className="text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors">健康營養實驗室</a>
+                    <a href="#academy" className="text-sm font-semibold text-emerald-600 hover:text-emerald-500 transition-colors flex items-center gap-1.5 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-500/20">
+                      <i data-lucide="book-open" className="w-4 h-4"></i>
+                      內部教育訓練沙盒
+                    </a>
+                    <a href="#solutions" className="text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors">四重高效系統</a>
+                    <a href="#contact" className="px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-800 hover:bg-emerald-500 hover:text-white border border-slate-200 transition-all shadow-sm">
+                      支援支援諮詢
+                    </a>
+                  </nav>
+                </div>
+              </header>
+
+              {/* 英雄區 (Hero Section) */}
+              <section className="relative py-20 lg:py-32 overflow-hidden border-b border-slate-100">
+                <div className="absolute top-1/4 left-1/2 bg-glow-emerald w-[500px] h-[500px] bg-emerald-300/20 rounded-full blur-[120px] pointer-events-none" />
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                  <div className="grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div className="lg:col-span-7 space-y-8">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-xs text-emerald-700 font-bold tracking-wide">
+                        <i data-lucide="baby" className="w-3.5 h-3.5 text-emerald-500"></i>
+                        <span>MitoActiveLife 專業營養系列 · 遵循規範文案修訂版</span>
+                      </div>
+                      <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-tight text-slate-900">
+                        補鈣，吸收重於含量！<br />
+                        <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 bg-clip-text text-transparent">
+                          給全家人好吃好吸收的營養守護
+                        </span>
+                      </h1>
+                      <p className="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed font-medium">
+                        打破傳統補充品厚重、難吞嚥的刻板印象！活「粒」生活精選**大西洋無污染天然紅藻海藻鈣**，搭配水解珍珠鈣、牛奶鈣與乳酸鈣，打造奢華四重營養網絡。融入**維生素 D3 與 K2** 形成高效鎖鈣鏈，化為酸甜可口的水果風味營養嚼錠，讓日常健康補充成為全家人期待的快樂時光。
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-4 pt-2">
+                        <a href="#solutions" className="px-8 py-4 rounded-xl text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-400 text-white shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all flex items-center gap-2">
+                          四重高效複合系統
+                        </a>
+                        <a href="#lab" className="px-8 py-4 rounded-xl text-sm font-bold bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 transition-all flex items-center gap-2 shadow-sm">
+                          進入互動實驗室 <i data-lucide="activity" className="w-4.5 h-4.5 text-emerald-500"></i>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-5 flex justify-center items-center">
+                      <div className="relative w-80 h-80 bg-white rounded-3xl border border-slate-200/80 p-8 flex flex-col justify-between shadow-xl">
+                        <div className="relative flex-1 flex items-center justify-center">
+                          <svg viewBox="0 0 100 100" className="w-32 h-32 text-emerald-500">
+                            <path d="M 35 25 C 45 10, 55 10, 65 25 C 60 40, 60 60, 65 75 C 55 90, 45 90, 35 75 C 40 60, 40 40, 35 25 Z" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-40" />
+                            <circle cx="50" cy="50" r="8" fill="#10b981" />
+                          </svg>
+                          <div className="absolute top-2 right-4 text-[10px] text-amber-600 font-bold bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
+                            ✨ 協同配方高效釋放
+                          </div>
+                          <div className="absolute bottom-2 left-4 text-[10px] text-cyan-600 font-bold bg-cyan-400/10 px-2 py-0.5 rounded border border-cyan-400/20">
+                            🛡️ 維生素 D3+K2 增進吸收
+                          </div>
+                        </div>
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-center text-xs font-bold text-slate-800">
+                          活「粒」生活專業複合營養口嚼錠
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+
+              {/* 黃金技術三柱 (Technology Triple Pillars) */}
+              <section id="science" className="py-20 max-w-7xl mx-auto px-6 border-b border-slate-100">
+                <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                  <span className="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">HEALTHY FORMULA PILLARS</span>
+                  <h2 className="text-3xl sm:text-4xl font-black text-slate-900">
+                    黃金高吸收發育三柱 — 告別盲目低效補充
+                  </h2>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                  {/* Pillar 1 */}
+                  <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 mb-6">
+                        <i data-lucide="zap" className="w-6 h-6"></i>
+                      </div>
+                      <span className="text-xs text-amber-600 font-bold block mb-2 uppercase">PILLAR 01 · 基礎新陳代謝</span>
+                      <h3 className="text-xl font-bold text-slate-900 mb-4">科學協同促進代謝機制</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">單純補充單一高劑量原料，若缺乏健康的代謝環境支持，極易流失。活「粒」生活著重於體內營養素的協同效應，透過溫和的草本及海洋微量礦物質成分，幫助調整體質，維持健康充滿活力、神經肌肉生理正常的新陳代謝良性循環。</p>
+                    </div>
+                  </div>
+
+                  {/* Pillar 2 */}
+                  <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-6">
+                        <i data-lucide="gem" className="w-6 h-6"></i>
+                      </div>
+                      <span className="text-xs text-emerald-600 font-bold block mb-2 uppercase">PILLAR 02 · 四重晶體複合鈣</span>
+                      <h3 className="text-xl font-bold text-slate-900 mb-4">溫和多元的鈣質網絡</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">拋棄容易引起脹氣不適的廉價碳酸鈣。我們不計成本，完美融合：**純淨高溫水解珍珠鈣** + **愛爾蘭無污染天然紅藻海藻鈣** + **高親和力優質牛奶鈣** + **極致溫和好溶解的 L-乳酸鈣**，全方位打造分層釋放曲線，細心呵護嬌嫩腸胃。</p>
+                    </div>
+                  </div>
+
+                  {/* Pillar 3 */}
+                  <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6">
+                        <i data-lucide="git-merge" className="w-6 h-6"></i>
+                      </div>
+                      <span className="text-xs text-cyan-600 font-bold block mb-2 uppercase">PILLAR 03 · 關鍵導航引導</span>
+                      <h3 className="text-xl font-bold text-slate-900 mb-4">維生素 D3 × K2 鎖鈣閉環</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">配方特別添加植物源高活性**維生素 D3**，能有效增進鈣吸收，幫助骨骼與牙齒的生長發育；搭配珍貴納豆來源的高純度**維生素 K2**，活化特殊蛋白質，將鈣質精準導向正確位置，形成完善的健康發育閉環。</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 生產製程區塊 (OEM Process Section) */}
+              <section id="oem-process" className="py-20 bg-slate-900 text-white overflow-hidden relative">
+                <div className="max-w-7xl mx-auto px-6">
+                  <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span className="text-xs font-extrabold tracking-widest text-emerald-400 uppercase">專業製造流程認證</span>
+                    <h2 className="text-3xl sm:text-4xl font-black">活「粒」生活 — 尖端專業工藝流程</h2>
+                    <p className="text-slate-400 text-sm">每一顆美味的鈣錠，皆誕生於通過國際最高規格品管認證的潔淨生技工廠，經由環保永續製程與 12 道嚴格工藝錘鍊而成。</p>
+                  </div>
+
+                  <div className="grid md:grid-cols-4 gap-6 relative">
+                    <div className="p-6 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-4">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black">01</div>
+                      <h4 className="text-base font-bold">天然紅藻低溫低破壞萃取</h4>
+                      <p className="text-xs text-slate-400 leading-relaxed">嚴選大西洋無污染天然紅藻，採用物理低溫微粉碎技術，在不破壞多孔蜂巢結構的前提下完全釋放珍貴的海藻鈣。</p>
+                    </div>
+
+                    <div className="p-6 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-4">
+                      <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center font-black">02</div>
+                      <h4 className="text-base font-bold">天然珍珠高效溫和水解</h4>
+                      <p className="text-xs text-slate-400 leading-relaxed">精選純天然優質珍珠，導入專利超微細多級水解製程，將粗糙的大分子結構剝離為極易被身體接納的優質珍珠鈣網絡。</p>
+                    </div>
+
+                    <div className="p-6 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-4">
+                      <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-black">03</div>
+                      <div className="text-base font-bold">D3+K2 均質微奈米包埋</div>
+                      <p className="text-xs text-slate-400 leading-relaxed">在密閉無菌氮氣環境下，透過生技級高壓均質機，將維生素 D3 與脂溶性 K2 完美包埋進牛奶鈣與乳酸鈣的矩陣網絡中。</p>
+                    </div>
+
+                    <div className="p-6 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-4">
+                      <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black">04</div>
+                      <h4 className="text-base font-bold">無水直接低溫打錠</h4>
+                      <p className="text-xs text-slate-400 leading-relaxed">完美調配天然水果風味與牛奶黃金比例，採用專利無水直接打錠工藝，全面避免高溫高壓對活性維生素效能的耗損。</p>
+                    </div>
+                  </div>
+
+                  {/* 綠色環保永續視覺聲明 */}
+                  <div className="mt-12 p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                    <div className="flex items-center gap-3">
+                      <i data-lucide="leaf" className="w-5 h-5 text-emerald-400 shrink-0"></i>
+                      <p className="text-slate-300 font-medium">
+                        <strong className="text-white">ESG 綠色環保製造聲明：</strong> 我們的海藻鈣直採符合永續海洋捕撈標準，生產線 100% 採用潔淨可再生能源，保證無不良化學溶劑殘留，對環境與下一代同樣友善。
+                      </p>
+                    </div>
+                    <span className="text-emerald-400 font-black shrink-0 tracking-widest bg-emerald-500/10 px-3 py-1 rounded">100% CLEAN LABEL</span>
+                  </div>
+                </div>
+              </section>
+
+              {/* 營養互動實驗室 (Lab & Simulator) */}
+              <section id="lab" className="py-20 bg-white border-b border-slate-100 relative">
+                <div className="max-w-7xl mx-auto px-6">
+                  <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                    <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-xs font-bold text-emerald-600 inline-block">NUTRITION SIMULATOR</span>
+                    <h2 className="text-3xl sm:text-4xl font-black text-slate-900">活「粒」生活 互動健康營養實驗室</h2>
+                    <p className="text-slate-600 font-medium">即時調整配方參數，親身體驗「四重優質鈣源 ➔ 維生素 D3/K2 導航 ➔ 孩子天天主動補充」的完美健康循環。</p>
+                  </div>
+
+                  <div className="grid lg:grid-cols-12 gap-8 bg-slate-50 p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-md">
+                    <div className="lg:col-span-5 space-y-8">
+                      <div className="flex items-center gap-2 pb-2 border-b border-slate-200">
+                        <i data-lucide="sliders" className="w-5 h-5 text-emerald-500"></i>
+                        <h3 className="text-lg font-bold text-slate-800">調節技術因子與服用依從性</h3>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-xs">
+                          <span className="font-bold text-slate-700 flex items-center gap-1.5">基礎配方協同代謝環境</span>
+                          <span className="font-bold text-amber-600">{nutritionSynergy}%</span>
+                        </div>
+                        <input 
+                          type="range" min="0" max="100" value={nutritionSynergy}
+                          onChange={(e) => setNutritionSynergy(Number(e.target.value))}
+                          className="w-full accent-amber-500 bg-slate-200 rounded-lg appearance-none h-2 cursor-pointer"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-xs">
+                          <span className="font-bold text-slate-700 flex items-center gap-1.5">四重複合鈣源配比</span>
+                          <span className="font-bold text-emerald-600">{quadCalcium}%</span>
+                        </div>
+                        <input 
+                          type="range" min="0" max="100" value={quadCalcium}
+                          onChange={(e) => setQuadCalcium(Number(e.target.value))}
+                          className="w-full accent-emerald-500 bg-slate-200 rounded-lg appearance-none h-2 cursor-pointer"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-xs">
+                          <span className="font-bold text-slate-700 flex items-center gap-1.5">維生素 D3 × K2 導航配比</span>
+                          <span className="font-bold text-cyan-600">{vitD3K2}%</span>
+                        </div>
+                        <input 
+                          type="range" min="0" max="100" value={vitD3K2}
+                          onChange={(e) => setVitD3K2(Number(e.target.value))}
+                          className="w-full accent-cyan-500 bg-slate-200 rounded-lg appearance-none h-2 cursor-pointer"
+                        />
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between shadow-sm">
+                        <div className="space-y-1">
+                          <span className="font-bold text-sm text-slate-800 block">水果風味點心感 (提高依從性)</span>
+                          <p className="text-xs text-slate-500">孩子主動搶著吃，實現每日不間斷足量補充</p>
+                        </div>
+                        <button 
+                          onClick={() => setFlavorAcceptance(!flavorAcceptance)}
+                          className={`w-14 h-8 rounded-full transition-colors relative flex items-center px-1 ${flavorAcceptance ? 'bg-emerald-500' : 'bg-slate-300'}`}
+                        >
+                          <div className={`w-6 h-6 rounded-full bg-white transition-transform ${flavorAcceptance ? 'translate-x-6' : 'translate-x-0'} shadow-md`} />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-4 bg-white rounded-2xl border border-slate-200 p-6 flex flex-col items-center justify-center min-h-[350px] shadow-sm">
+                      <span className="text-xs text-slate-400 uppercase tracking-widest font-bold mb-4">全家人發育營養動態模擬</span>
+                      <div className="relative w-48 h-48 flex items-center justify-center">
+                        <svg viewBox="0 0 100 100" className="w-28 h-28 text-emerald-500">
+                          <path d="M 35 25 C 45 12, 55 12, 65 25 C 60 40, 60 60, 65 75 C 55 88, 45 88, 35 75 C 40 60, 40 40, 35 25 Z" fill="none" stroke="currentColor" strokeWidth="2.5" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-3 flex flex-col justify-between gap-6">
+                      <div className="space-y-6">
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                          <span className="text-xs text-slate-500 block font-bold">黃金高吸收利用效率</span>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-3xl font-black text-slate-800">{absorptionRate}</span>
+                            <span className="text-xs text-emerald-600 font-extrabold">%</span>
+                          </div>
+                        </div>
+
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                          <span className="text-xs text-slate-500 block font-bold">骨骼與牙齒發育支持率</span>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-3xl font-black text-slate-800">{boneDensityRate}</span>
+                            <span className="text-xs text-cyan-600 font-extrabold">%</span>
+                          </div>
+                        </div>
+
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                          <span className="text-xs text-slate-500 block font-bold">消化道溫和舒適感</span>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-3xl font-black text-slate-800">{comfortRatio}</span>
+                            <span className="text-xs text-teal-600 font-extrabold">%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 教育訓練與常見問題解答 (Smart Sales Empowerment Center) */}
+              <section id="academy" className="py-20 max-w-7xl mx-auto px-6 border-b border-slate-100">
+                <div className="flex flex-col xl:flex-row items-start xl:items-end justify-between gap-6 mb-12">
+                  <div className="space-y-4 max-w-2xl">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-xs text-emerald-600 font-bold">
+                      <i data-lucide="book-open" className="w-3.5 h-3.5"></i>
+                      <span>活「粒」生活 經銷夥伴合規教育訓練指南</span>
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl font-black text-slate-900">常見問題與服務對答拆招</h2>
+                    <p className="text-slate-600 font-medium">本章節供服務人員與經銷通路內部教育訓練使用。請嚴格遵循衛福部核可之營養宣傳口徑與客戶溝通。</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+                    <button onClick={() => setAcademyTab('manifesto')} className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${academyTab === 'manifesto' ? 'bg-emerald-500 text-white shadow-sm' : 'text-slate-600'}`}>核心配方理念</button>
+                    <button onClick={() => setAcademyTab('emotions')} className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${academyTab === 'emotions' ? 'bg-emerald-500 text-white shadow-sm' : 'text-slate-600'}`}>分齡營養與關懷</button>
+                    <button onClick={() => setAcademyTab('objections')} className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${academyTab === 'objections' ? 'bg-emerald-500 text-white shadow-sm' : 'text-slate-600'}`}>合規對答與心理拆招</button>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-lg">
+                  {academyTab === 'manifesto' && (
+                    <div className="space-y-6">
+                      <h3 className="text-2xl font-black text-slate-900">「美味與吸收並重，讓補鈣成為期待」</h3>
+                      <p className="text-sm text-slate-700 leading-relaxed">
+                        吃得再多，沒吸收也是徒勞。活「粒」生活秉持專業生技研發原則，將維生素 D3、維生素 K2 與多元複合鈣源融為一體，以優質的黃金高吸收配方，全面有助於維持骨骼與牙齒的正常發育與健康。
+                      </p>
+                    </div>
+                  )}
+
+                  {academyTab === 'emotions' && (
+                    <div className="grid md:grid-cols-12 gap-8">
+                      <div className="md:col-span-4 space-y-3">
+                        <span className="text-xs text-cyan-600 font-bold uppercase block mb-4">精準分齡劑量與日常規劃指引</span>
+                        <div className="p-4 bg-white border border-slate-200 rounded-xl">
+                          <span className="text-xs font-bold text-slate-800 block">👶 幼童期 (6歲以下) —— 每日建議 1 粒</span>
+                          <p className="text-xs text-slate-500 mt-1">隨餐咀嚼。基礎發育期，著重溫和呵護，補給骨骼與牙齒成長所需營養。</p>
+                        </div>
+                        <div className="p-4 bg-white border border-slate-200 rounded-xl">
+                          <span className="text-xs font-bold text-slate-800 block">👦 黃金發育期 (6-18歲) —— 每日建議 2 粒</span>
+                          <p className="text-xs text-slate-500 mt-1">早晚隨餐各 1 粒。關鍵生長時刻，海藻鈣全速輸出，鞏固成長發育的黃金密碼。</p>
+                        </div>
+                        <div className="p-4 bg-white border border-slate-200 rounded-xl">
+                          <span className="text-xs font-bold text-slate-800 block">🧓 銀髮長輩與熟齡 —— 每日建議 2-3 粒</span>
+                          <p className="text-xs text-slate-500 mt-1">隨餐服用。維持骨骼健康，有助於肌肉與神經的正常收縮，全面維持靈活動力。</p>
+                        </div>
+                      </div>
+
+                      <div className="md:col-span-8 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                        <div className="space-y-4">
+                                                    <ul className="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                            <li><strong>鈣：</strong> 有助於維持骨骼與牙齒的正常發育與健康。幫助血液正常的凝固功能。常與肌肉與神經的正常收縮及皮膚的健康。</li>
+                            <li><strong>維生素D3：</strong> 增進鈣吸收。幫助骨骼與牙齒的生長發育。促進釋放骨鈣，以維持血鈣平衡。有助於維持神經、肌肉的正常生理。</li>
+                            <li><strong>維生素K2：</strong> 有助血液正常的凝固功能。活化特殊蛋白質，將鈣質導向正確位置。</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {academyTab === 'objections' && (
+                    <div className="space-y-6">
+                      <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600">
+                        <strong className="text-slate-800 block text-sm mb-1">💰 經銷夥伴合規提醒</strong>
+                        本產品定位於高端優質原材料直採與嚴格品管製造。在與消費者面談拆招時，請務必強調「100%安全安全、不脹氣、高依從性、通過嚴格第三方檢驗」的長期健康價值，切勿向消費者承諾任何暗示長高公分數、醫療療效之誇大詞彙。
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[
+                          { id: 'o1', client: '「一粒幾十元，比普通碳酸鈣貴？」', response: '「市售碳酸鈣遇到胃酸容易釋放大量氣體，導致孩子肚子脹或不適。我們融合四大純淨優質鈣源，溫和不傷消化道。高吸收效率與高服用依從性，才是最高效的健康投資！」' },
+                          { id: 'o2', client: '「保健品都是化學添加，不放心」', response: '「活『粒』生活採用愛爾蘭天然紅藻與優質乳源，符合 Clean Label 的潔淨製程標準，絕無化學溶劑殘留，給全家人最放心的營養守護。」' },
+                          { id: 'o3', client: '「孩子很挑食，怕買了又不吃」', response: '「我們特別研發為清爽好嚼的牛奶風味，無傳統鈣片的怪異藥味，讓補充營養像每天的快樂點心時間，孩子主動愛吃，您不需天天操心！」' }
+                        ].map(obj => (
+                          <div key={obj.id} onClick={() => setFlippedObjection(flippedObjection === obj.id ? null : obj.id)} className="p-6 rounded-2xl border bg-white border-slate-200 hover:border-slate-300 cursor-pointer min-h-[150px] flex flex-col justify-between shadow-sm">
+                            <div>
+                              <span className="text-[10px] text-slate-400 font-bold block mb-1">常見提問</span>
+                              <h4 className="text-sm font-bold text-slate-800 mb-2">{obj.client}</h4>
+                            </div>
+                            {flippedObjection === obj.id ? (
+                              <div className="text-xs pt-2 border-t border-emerald-200 text-slate-700">
+                                <strong>合規回覆：</strong>{obj.response}
+                              </div>
+                            ) : (
+                              <span className="text-[11px] text-amber-600 font-bold flex items-center gap-1">👉 點擊查看合規對答法</span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              {/* 四重複合系統與劑型考量 */}
+              <section id="solutions" className="py-20 max-w-7xl mx-auto px-6 border-b border-slate-100">
+                <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                  <span className="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">PRODUCT MATRIX</span>
+                  <h2 className="text-3xl sm:text-4xl font-black text-slate-900">MitoActiveLife 四重晶體頂級複合配方</h2>
+                </div>
+
+                <div className="grid lg:grid-cols-12 gap-12 items-center bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-md">
+                  <div className="lg:col-span-7 space-y-8">
+                    <span className="text-xs text-emerald-600 font-bold block uppercase">全方位高吸收網絡</span>
+                    <h3 className="text-2xl font-black text-slate-900">「四大高端鈣源」完美融合</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed font-medium">告別單一鈣源釋放不均的弊端，透過先進包埋工藝將四大頂級鈣源網格化，實現完美的多層級、多梯隊緩釋吸收：</p>
+
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-4">
+                        <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 font-bold shrink-0 text-xs shadow-sm">1</div>
+                        <div>
+                          <h4 className="text-sm font-bold text-slate-800">高純度溫和水解珍珠鈣 (極致微分子)</h4>
+                          <p className="text-xs text-slate-500 mt-1">將頂級天然珍珠超導水解，微分子結構極易穿透，為身體提供最初步的優質氨基酸鈣營養網格。</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-4">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold shrink-0 text-xs shadow-sm">2</div>
+                        <div>
+                          <h4 className="text-sm font-bold text-slate-800">愛爾蘭天然紅藻海藻鈣 (高吸收蜂巢結構)</h4>
+                          <p className="text-xs text-slate-500 mt-1">直採無污染大西洋天然紅藻萃取，具備獨特天然多孔蜂巢物理結構，高達 32% 的高吸收率，同時富含 72 種珍稀海洋微量礦物質。</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-4">
+                        <div className="w-8 h-8 rounded-lg bg-cyan-100 flex items-center justify-center text-cyan-600 font-bold shrink-0 text-xs shadow-sm">3</div>
+                        <div>
+                          <h4 className="text-sm font-bold text-slate-800">高親和原生态牛奶鈣 × 極溫和 L-乳酸鈣</h4>
+                          <p className="text-xs text-slate-500 mt-1">提煉自純淨乳源的牛奶鈣具備極高的親和力，搭配溶解度極佳、對消化道零刺激的乳酸鈣，徹底杜絕傳統補鈣的負擔與不適。</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-5 bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6 shadow-inner">
+                    <span className="text-xs text-slate-500 font-bold block uppercase">專為全家人定制 — 口嚼錠物理學</span>
+                    <div className="space-y-4">
+                      <div className="p-3.5 bg-white rounded-xl border border-slate-150 shadow-sm">
+                        <span className="text-xs font-bold text-slate-800 block">口腔微吸收優勢</span>
+                        <span className="text-[11px] text-slate-500 block mt-1">在細心咀嚼的過程中，部分微分子珍珠鈣與乳酸鈣便能直接被吸收，效率極佳。</span>
+                      </div>
+                      <div className="p-3.5 bg-white rounded-xl border border-slate-150 shadow-sm">
+                        <span className="text-xs font-bold text-slate-800 block">快樂的健康體驗 (清爽水果風味)</span>
+                        <span className="text-[11px] text-slate-500 block mt-1">酸甜可口的水果香氣與優質乳香結合，讓補鈣變成每日期待的快樂享受。</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 團隊介紹 (Our Leadership) */}
+              <section id="team" className="py-20 max-w-7xl mx-auto px-6 border-b border-slate-100">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+                  <div className="space-y-4 max-w-2xl">
+                    <span className="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">OUR LEADERSHIP</span>
+                    <h2 className="text-3xl sm:text-4xl font-black text-slate-900">科研智慧與企業運營的完美結合</h2>
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6 max-w-2xl">
+                  {filteredLeaders.map(leader => (
+                    <div key={leader.id} onClick={() => setSelectedLeader(leader)} className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-200 overflow-hidden transition-all cursor-pointer flex flex-col justify-between shadow-sm">
+                      <div className="p-5 space-y-2">
+                        <h3 className="text-lg font-black text-slate-800">{leader.name}</h3>
+                        <p className="text-xs text-slate-500 font-bold leading-tight">{leader.title}</p>
+                        <p className="text-[11px] text-slate-500 line-clamp-2 mt-2 font-medium">{leader.experience}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* 聯絡區/內部支援 (Contact Section) */}
+              <section id="contact" className="py-20 max-w-7xl mx-auto px-6">
+                <div className="grid lg:grid-cols-12 gap-12 bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-lg">
+                  <div className="lg:col-span-5 space-y-6">
+                    <span className="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">INTERNAL TRAINING SUPPORT</span>
+                    <h2 className="text-3xl font-black text-slate-900">聯絡專家與獲取合規支援方案</h2>
+                    <p className="text-slate-600 text-sm leading-relaxed">對純天然水解珍珠鈣、海藻鈣永續直採追溯，或對經銷通路的分級合規培訓有任何疑問？歡迎遞交內部支援諮詢申請。</p>
+                  </div>
+
+                  <div className="lg:col-span-7 bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-inner">
+                    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <input type="text" placeholder="您的姓名" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm" />
+                        <input type="email" placeholder="內部聯絡電子郵件" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm" />
+                      </div>
+                      <select className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-700">
+                        <option>合規行銷與多元配方科學白皮書索取</option>
+                        <option>珍珠鈣與無污染紅藻永續直採追溯證書</option>
+                        <option>經銷通路合規話術培訓支援</option>
+                      </select>
+                      <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-sm font-bold shadow-lg">遞交內部合規培訓申請</button>
+                    </form>
+                  </div>
+                </div>
+              </section>
+
+              {/* 頁腳 (Footer) */}
+              <footer className="bg-white border-t border-slate-200/80 py-12">
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+                  <div className="space-y-4">
+                    <span className="text-lg font-black text-slate-900">MitoActiveLife</span>
+                    <p className="text-xs text-slate-500 leading-relaxed font-bold">MitoActiveLife 活「粒」生活 專業發育與健康補給系列。融合多元優質複合鈣源 × 關鍵導航因子 × 綠色環保與水果依從性。2026年6月修訂版。</p>
+                  </div>
+                  <div>
+                    <h4 className="text-xs uppercase tracking-widest text-slate-400 font-extrabold mb-4">合法合規聲明與標準詞句</h4>
+                    <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
+                      本網頁所有產品文案、教育訓練沙盒之編寫與規劃，均嚴格遵循衛生福利部食品藥物管理署公告之「食品廣告標示詞句認定基準」，僅作營養補充之用途宣傳，不涉及任何醫療、疾病預防與不實誇大。
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-slate-400 font-bold block">© 2026 MitoActiveLife Inc. All Rights Reserved.</span>
+                  </div>
+                </div>
+              </footer>
+
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeyChew 嗨嚼 — 天然寵物健康零食</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+    body { font-family: 'Noto Sans TC', sans-serif; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #fef9f0; }
+    ::-webkit-scrollbar-thumb { background: #f97316; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ea580c; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.7s ease both; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+    .product-img {
+      transition: transform 0.4s ease;
+    }
+
+    .hero-bg {
+      background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 40%, #ecfdf5 100%);
+    }
+
+    .badge-tag {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+    }
+  </style>
+</head>
+<body class="bg-amber-50 text-slate-800 overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-orange-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 text-slate-600 hover:text-orange-500 transition text-sm font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        返回大華醫事檢驗所
+      </a>
+      <img src="/images/heychewp1_logo.jpg" alt="HeyChew Logo" class="h-10 rounded-xl" />
+      <a href="#products" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-full transition">
+        查看產品
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+    <!-- Decorative blobs -->
+    <div class="absolute top-20 right-10 w-72 h-72 bg-orange-200 rounded-full opacity-30 blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-20 left-10 w-56 h-56 bg-green-200 rounded-full opacity-30 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center">
+      <!-- Left: Text -->
+      <div class="fade-in-up">
+        <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 text-sm font-bold px-4 py-2 rounded-full mb-6">
+          🐾 For Medium Dogs &amp; Cats
+        </div>
+        <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">
+          <span class="text-orange-500">嗨嚼</span><br/>
+          <span class="text-green-700">HeyChew</span>
+        </h1>
+        <p class="text-xl text-slate-600 leading-relaxed mb-4">
+          天然單一食材，無穀、無添加糖<br/>
+          每一口都是對毛孩最純粹的愛
+        </p>
+        <p class="text-slate-500 leading-relaxed mb-8">
+          100% 天然原料，專為中型犬貓設計的每日潔牙零食與節慶點心。
+          支持牙齒健康，天然單一食材，美味好消化。
+        </p>
+        <div class="flex flex-wrap gap-3 mb-8">
+          <span class="flex items-center gap-1 bg-white border border-green-200 text-green-700 text-sm font-semibold px-4 py-2 rounded-full shadow-sm">
+            ✅ 100% 天然
+          </span>
+          <span class="flex items-center gap-1 bg-white border border-orange-200 text-orange-700 text-sm font-semibold px-4 py-2 rounded-full shadow-sm">
+            🌾 無穀配方
+          </span>
+          <span class="flex items-center gap-1 bg-white border border-blue-200 text-blue-700 text-sm font-semibold px-4 py-2 rounded-full shadow-sm">
+            🦷 潔牙健康
+          </span>
+          <span class="flex items-center gap-1 bg-white border border-purple-200 text-purple-700 text-sm font-semibold px-4 py-2 rounded-full shadow-sm">
+            😋 美味好消化
+          </span>
+        </div>
+        <a href="#products" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+          立即選購
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Right: Logo -->
+      <div class="flex justify-center fade-in-up delay-200">
+        <img src="/images/heychewp1_logo.jpg" alt="HeyChew" class="w-80 md:w-96 rounded-3xl shadow-2xl float-anim" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Story Section -->
+  <section class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <h2 class="text-4xl font-black mb-4">品牌故事</h2>
+        <p class="text-slate-500 max-w-2xl mx-auto text-lg">
+          嗨嚼源自對毛孩最真摯的愛，傳承老街的溫情，用天然食材守護每一個家庭的健康。
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="rounded-3xl overflow-hidden shadow-lg group">
+          <img src="/images/heychewbrandp1.jpg" alt="老街溫情" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500" />
+          <div class="p-5 bg-amber-50">
+            <h3 class="font-black text-lg mb-2">老街的溫情</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">從老街巷弄中的人情味出發，人與動物共享美好時光的溫暖記憶，是 HeyChew 品牌精神的起源。</p>
+          </div>
+        </div>
+        <div class="rounded-3xl overflow-hidden shadow-lg group">
+          <img src="/images/heychewbrandp2.jpg" alt="人與寵物的羈絆" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500" />
+          <div class="p-5 bg-amber-50">
+            <h3 class="font-black text-lg mb-2">人與寵物的羈絆</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">無論是夜市攤前的陪伴，還是餐桌旁的守候，毛孩始終是家人最忠實的夥伴。</p>
+          </div>
+        </div>
+        <div class="rounded-3xl overflow-hidden shadow-lg group">
+          <img src="/images/heychewbrandp3.jpg" alt="共同守望" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500" />
+          <div class="p-5 bg-amber-50">
+            <h3 class="font-black text-lg mb-2">共同守望</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">一起看日落，一起走過每一個日常。HeyChew 陪伴您與毛孩，共同迎接每一個美好的明天。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="bg-gradient-to-br from-orange-50 to-green-50 py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <h2 class="text-4xl font-black mb-4">為什麼選擇 HeyChew？</h2>
+        <p class="text-slate-500 max-w-xl mx-auto">每一款產品都嚴格把關，只給毛孩最好的</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-white rounded-3xl p-7 text-center shadow-md hover:shadow-xl transition hover:-translate-y-1">
+          <div class="text-4xl mb-4">🌿</div>
+          <h3 class="font-black text-lg mb-2">天然單一食材</h3>
+          <p class="text-slate-500 text-sm">無人工添加物，原料清晰透明，讓您安心餵食</p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 text-center shadow-md hover:shadow-xl transition hover:-translate-y-1">
+          <div class="text-4xl mb-4">🦷</div>
+          <h3 class="font-black text-lg mb-2">支持牙齒健康</h3>
+          <p class="text-slate-500 text-sm">每日咀嚼有助清潔牙齒，維持口腔衛生</p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 text-center shadow-md hover:shadow-xl transition hover:-translate-y-1">
+          <div class="text-4xl mb-4">🚫</div>
+          <h3 class="font-black text-lg mb-2">無穀無添加糖</h3>
+          <p class="text-slate-500 text-sm">100% 無穀、無添加糖，適合對穀物敏感的毛孩</p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 text-center shadow-md hover:shadow-xl transition hover:-translate-y-1">
+          <div class="text-4xl mb-4">😋</div>
+          <h3 class="font-black text-lg mb-2">美味好消化</h3>
+          <p class="text-slate-500 text-sm">毛孩超愛的口感，同時易於消化，不造成腸胃負擔</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <h2 class="text-4xl font-black mb-4">精選產品系列</h2>
+        <p class="text-slate-500 max-w-xl mx-auto">每款零食均採用天然食材，專為中型犬貓設計，每包淨重 100g</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Product 1: 豬耳朵 -->
+        <div class="product-card bg-amber-50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition hover:-translate-y-1 border border-amber-100">
+          <div class="overflow-hidden bg-white">
+            <img src="/images/heychewp1.jpg" alt="豬耳朵" class="product-img w-full h-60 object-cover" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge-tag text-white text-xs font-bold px-3 py-1 rounded-full">🐷 豬耳朵</span>
+              <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Pig Ears</span>
+            </div>
+            <h3 class="text-xl font-black mb-2">豬耳朵潔牙零食</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">天然豬耳朵，富含膠原蛋白，咀嚼時有效清潔牙齒，是毛孩最愛的每日潔牙好幫手。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 高膠原蛋白</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 潔牙效果佳</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 100g</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2: 貓草雞肉片 -->
+        <div class="product-card bg-amber-50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition hover:-translate-y-1 border border-amber-100">
+          <div class="overflow-hidden bg-white">
+            <img src="/images/heychewp2.jpg" alt="貓草雞肉片" class="product-img w-full h-60 object-cover" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge-tag text-white text-xs font-bold px-3 py-1 rounded-full">🐔 雞肉</span>
+              <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Catnip Chicken</span>
+            </div>
+            <h3 class="text-xl font-black mb-2">貓草雞肉片</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">融合貓草與天然雞肉，讓貓咪愛不釋口。薄片設計方便咀嚼，適合各年齡層的貓咪享用。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 貓草添加</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 高蛋白</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 100g</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3: 凍乾雞肉丁 -->
+        <div class="product-card bg-amber-50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition hover:-translate-y-1 border border-amber-100">
+          <div class="overflow-hidden bg-white">
+            <img src="/images/heychewp3.jpg" alt="凍乾雞肉丁" class="product-img w-full h-60 object-cover" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge-tag text-white text-xs font-bold px-3 py-1 rounded-full">❄️ 凍乾</span>
+              <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Freeze-Dried</span>
+            </div>
+            <h3 class="text-xl font-black mb-2">凍乾雞肉丁</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">採用低溫凍乾技術，完整保留雞肉的天然營養與鮮味，酥脆口感讓犬貓都瘋狂喜愛。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 低溫凍乾</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 鎖住營養</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 100g</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4: 豬里肌 -->
+        <div class="product-card bg-amber-50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition hover:-translate-y-1 border border-amber-100">
+          <div class="overflow-hidden bg-white">
+            <img src="/images/heychewp4.jpg" alt="豬里肌" class="product-img w-full h-60 object-cover" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge-tag text-white text-xs font-bold px-3 py-1 rounded-full">🐷 豬里肌</span>
+              <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Pork Loin</span>
+            </div>
+            <h3 class="text-xl font-black mb-2">豬里肌肉條</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">精選豬里肌部位，低脂高蛋白，柔軟肉條適合老犬或牙口不好的毛孩，滋味鮮美令人回味。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 低脂高蛋白</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 柔軟易嚼</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 100g</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5: 凍乾雞肉丁(第二款) -->
+        <div class="product-card bg-amber-50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition hover:-translate-y-1 border border-amber-100">
+          <div class="overflow-hidden bg-white">
+            <img src="/images/heychewp5.jpg" alt="凍乾雞肉丁" class="product-img w-full h-60 object-cover" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge-tag text-white text-xs font-bold px-3 py-1 rounded-full">❄️ 凍乾</span>
+              <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Chicken Cubes</span>
+            </div>
+            <h3 class="text-xl font-black mb-2">凍乾雞肉丁（節慶款）</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">節慶限定包裝，與標準款相同的優質凍乾雞肉，適合作為毛孩的特別獎勵或節日禮物。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 節慶限定</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 送禮首選</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 100g</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6: 貓草雞肉片(第二款) -->
+        <div class="product-card bg-amber-50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition hover:-translate-y-1 border border-amber-100">
+          <div class="overflow-hidden bg-white">
+            <img src="/images/heychewp6.jpg" alt="貓草雞肉片" class="product-img w-full h-60 object-cover" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge-tag text-white text-xs font-bold px-3 py-1 rounded-full">🐔 雞肉</span>
+              <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Catnip Slices</span>
+            </div>
+            <h3 class="text-xl font-black mb-2">貓草雞肉片（特選）</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">特選優質雞胸肉搭配天然貓草，薄切工藝讓每一片都均勻入味，是貓咪最難抗拒的日常零食。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 特選雞胸</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 薄切工藝</span>
+              <span class="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded-full">✓ 100g</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-gradient-to-r from-orange-500 to-orange-600 py-20 text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <img src="/images/HeyChew_Logo_Transparent.jpg" alt="HeyChew" class="w-32 mx-auto mb-6 rounded-2xl shadow-lg" />
+      <h2 class="text-4xl font-black mb-4">讓毛孩每天都嗨嚼！</h2>
+      <p class="text-orange-100 text-lg mb-8 max-w-xl mx-auto">
+        天然食材、無穀無添加糖，給您最愛的毛孩最純粹的健康零食體驗。
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://line.me/ti/p/~@dahualab" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center justify-center gap-2 bg-white text-orange-600 font-black text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.03 2 11c0 3.13 1.67 5.88 4.24 7.62L5.5 22l3.54-1.85C10.27 20.69 11.12 21 12 21c5.52 0 10-4.03 10-9S17.52 2 12 2z"/>
+          </svg>
+          LINE 詢問購買
+        </a>
+        <a href="/" class="inline-flex items-center justify-center gap-2 bg-orange-400 hover:bg-orange-300 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all hover:-translate-y-1">
+          返回大華醫事檢驗所
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm">
+    <p class="mb-1">HeyChew 嗨嚼 — Daily Dental Chews + Festive Treats</p>
+    <p>For Medium Dogs &amp; Cats ｜ 100% Natural ｜ Grain Free ｜ No Added Sugar</p>
+    <p class="mt-4 text-slate-600">© 2025 HeyChew. 由大華醫事檢驗所合作推薦。</p>
+  </footer>
+
+</body>
+</html>
