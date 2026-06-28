@@ -1,17 +1,8 @@
 {
-  "version": 2,
-  "framework": "vite",
-  "outputDirectory": "dist/public",
-  "regions": ["sin1"],
-  "functions": {
-    "server/index.ts": {
-      "runtime": "@vercel/node"
-    }
-  },
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist",
+  "framework": null,
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
