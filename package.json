@@ -1,15 +1,9 @@
 {
-  "version": 2,
   "buildCommand": "pnpm install && pnpm build",
-  "outputDirectory": "dist/public",
+  "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "pnpm install --frozen-lockfile",
   "regions": ["sin1"],
-  "functions": {
-    "server/index.ts": {
-      "runtime": "@vercel/node"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
@@ -20,19 +14,13 @@
     {
       "source": "/assets/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     }
   ]
