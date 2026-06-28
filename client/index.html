@@ -1,14 +1,1515 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>大華醫事檢驗所</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大華醫事檢驗所 - 精準醫學，數據實證</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+      height: 68px;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nav-brand-icon {
+      width: 36px;
+      height: 36px;
+      background: #0f172a;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .nav-brand-text h1 {
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .nav-brand-text p {
+      font-size: 10px;
+      color: #94a3b8;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 24px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #64748b;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #0f172a;
+    }
+
+    .nav-links .btn-booking {
+      padding: 10px 20px;
+      background: #0f172a;
+      color: white;
+      border-radius: 9999px;
+      cursor: pointer;
+    }
+
+    .nav-links .btn-booking:hover {
+      background: #0369a1;
+    }
+
+    .nav-toggle {
+      display: block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: #64748b;
+    }
+
+    @media (min-width: 1024px) {
+      .nav-links {
+        display: flex;
+      }
+      .nav-toggle {
+        display: none;
+      }
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #f0f9ff;
+      color: #0369a1;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      width: fit-content;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: #0f172a;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 56px;
+      }
+    }
+
+    .hero-title .highlight {
+      color: #0369a1;
+    }
+
+    .hero-desc {
+      color: #64748b;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 16px;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #0f172a;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0369a1;
+      box-shadow: 0 20px 25px rgba(15, 23, 42, 0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #0f172a;
+      border: 2px solid #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+      border-color: #0f172a;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding-top: 32px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 900;
+      color: #0369a1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .hero-right {
+      display: none;
+      height: 520px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 80px;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 32px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    .hero-right-icon {
+      font-size: 64px;
+      opacity: 0.5;
+    }
+
+    .hero-right-text {
+      font-size: 14px;
+      opacity: 0.75;
+    }
+
+    /* CLINIC SHOWCASE */
+    .clinic-section {
+      padding: 96px 0;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 40px;
+      }
+    }
+
+    .section-desc {
+      color: #64748b;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 16px;
+    }
+
+    .clinic-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .clinic-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .clinic-grid img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* HEALTH CHECKUPS */
+    .checkups-section {
+      padding: 96px 0;
+      background: #f8fafc;
+    }
+
+    .checkups-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .toggle-group {
+      display: inline-flex;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .toggle-btn {
+      padding: 8px 24px;
+      border: none;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: transparent;
+      color: #64748b;
+    }
+
+    .toggle-btn.active {
+      background: #0f172a;
+      color: white;
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .packages-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .package-card {
+      background: white;
+      border-radius: 24px;
+      border: 1px solid #e2e8f0;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .package-card:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .package-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .package-icon {
+      font-size: 32px;
+    }
+
+    .package-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #f0f9ff;
+      color: #0369a1;
+    }
+
+    .package-name {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    .package-desc {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .package-link {
+      color: #0369a1;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .package-details {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      display: none;
+    }
+
+    .package-details.show {
+      display: block;
+    }
+
+    .package-details-title {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .package-details-list {
+      list-style: none;
+      space-y: 4px;
+    }
+
+    .package-details-list li {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    /* GENE TESTING */
+    .gene-section {
+      padding: 96px 0;
+      background: #0f172a;
+      color: white;
+    }
+
+    .gene-section .section-badge {
+      background: #0c4a6e;
+      color: #7dd3fc;
+    }
+
+    .gene-section .section-title {
+      color: white;
+    }
+
+    .gene-section .section-desc {
+      color: #94a3b8;
+    }
+
+    .gene-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .gene-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gene-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gene-card {
+      border-radius: 24px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+
+    .gene-card.highlight {
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+      color: white;
+    }
+
+    .gene-card:not(.highlight) {
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+
+    .gene-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .gene-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .gene-card.highlight .gene-icon {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .gene-card:not(.highlight) .gene-icon {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .gene-name {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .gene-desc {
+      font-size: 14px;
+      opacity: 0.75;
+    }
+
+    /* SPECIALIZED TESTS */
+    .specialized-section {
+      padding: 96px 0;
+      background: white;
+    }
+
+    .specialized-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 1024px) {
+      .specialized-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .specialized-card {
+      border-radius: 24px;
+      padding: 32px;
+    }
+
+    .allergy-card {
+      background: linear-gradient(135deg, #f0f9ff 0%, #ccfbf1 100%);
+    }
+
+    .nutrition-card {
+      background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .allergy-card .card-icon {
+      background: #14b8a6;
+    }
+
+    .nutrition-card .card-icon {
+      background: #d97706;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .allergy-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .allergy-item {
+      border-radius: 16px;
+      padding: 16px;
+      background: white;
+      border: 1px solid #ccfbf1;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .allergy-item:hover {
+      background: #14b8a6;
+      color: white;
+      border-color: #14b8a6;
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .nutrition-item {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid #fed7aa;
+      text-align: center;
+    }
+
+    .nutrition-item.full {
+      grid-column: span 2;
+      background: #d97706;
+      color: white;
+      border-color: #d97706;
+    }
+
+    .nutrition-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .nutrition-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #0f172a;
+    }
+
+    .nutrition-item.full .nutrition-name {
+      color: white;
+    }
+
+    .consultation-box {
+      background: #0f172a;
+      border-radius: 24px;
+      padding: 32px;
+      color: white;
+    }
+
+    .consultation-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .consultation-desc {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .consultation-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #0369a1;
+      color: white;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .consultation-link:hover {
+      background: #0284c7;
+    }
+
+    /* PRODUCTS */
+    .products-section {
+      padding: 96px 0;
+      background: #f8fafc;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .products-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .product-card:nth-child(1) .product-icon {
+      background: #0ea5e9;
+    }
+
+    .product-card:nth-child(2) .product-icon {
+      background: #d97706;
+    }
+
+    .product-name {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      color: #0f172a;
+    }
+
+    .product-desc {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .product-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .product-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .product-feature-check {
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .product-card:nth-child(1) .product-feature-check {
+      color: #10b981;
+    }
+
+    .product-card:nth-child(2) .product-feature-check {
+      color: #d97706;
+    }
+
+    /* BOOKING */
+    .booking-section {
+      padding: 96px 0;
+      background: white;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    @media (min-width: 1024px) {
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 32px;
+      background: #f8fafc;
+      border-radius: 24px;
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin: 0 auto 16px;
+    }
+
+    .contact-card:nth-child(1) .contact-icon {
+      background: #06b6d4;
+    }
+
+    .contact-card:nth-child(2) .contact-icon {
+      background: #0f172a;
+    }
+
+    .contact-card:nth-child(3) .contact-icon {
+      background: #0369a1;
+    }
+
+    .contact-title {
+      font-weight: 900;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+
+    .contact-info {
+      color: #64748b;
+      font-size: 14px;
+      font-family: monospace;
+      margin-bottom: 12px;
+    }
+
+    .contact-link {
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .contact-card:nth-child(1) .contact-link {
+      color: #06b6d4;
+    }
+
+    .contact-card:nth-child(2) .contact-link {
+      color: #1e293b;
+    }
+
+    .contact-card:nth-child(3) .contact-link {
+      color: #0369a1;
+    }
+
+    .booking-form-container {
+      background: #0f172a;
+      border-radius: 40px;
+      padding: 56px 32px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: white;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .form-desc {
+      color: #94a3b8;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .form-group {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      color: white;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-input::placeholder,
+    .form-select::placeholder,
+    .form-textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #0369a1;
+    }
+
+    .form-select {
+      grid-column: 1 / -1;
+    }
+
+    .form-textarea {
+      grid-column: 1 / -1;
+      resize: none;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      grid-column: 1 / -1;
+      padding: 20px;
+      background: #0369a1;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .form-submit:hover {
+      background: #0284c7;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 64px 32px;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: white;
+      font-size: 32px;
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .success-desc {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 0;
+      background: #0f172a;
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .footer-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+    }
+
+    .footer-brand-text {
+      font-weight: 900;
+      color: white;
+      font-size: 14px;
+    }
+
+    .footer-info {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .footer-copyright {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    /* SOCIAL FAB */
+    .social-fab {
+      position: fixed;
+      right: 24px;
+      bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 40;
+    }
+
+    .social-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: transform 0.3s;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .social-btn.facebook {
+      background: #1877f2;
+    }
+
+    .social-btn.line {
+      background: #06c755;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="container">
+      <a href="#hero" class="nav-brand">
+        <div class="nav-brand-icon">🔬</div>
+        <div class="nav-brand-text">
+          <h1>大華醫事檢驗所</h1>
+          <p>Dahua Medical Laboratory</p>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#checkups">健康檢查</a>
+        <a href="#gene">基因檢測</a>
+        <a href="#specialized">專項檢驗</a>
+        <a href="#products">保健產品</a>
+        <a href="#booking" class="btn-booking">預約諮詢</a>
+      </div>
+      <button class="nav-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-badge">彰化市崙平南路 532 號 · 04-7616801</div>
+          <h1 class="hero-title">精準醫學，<br><span class="highlight">數據實證。</span></h1>
+          <p class="hero-desc">大華醫事檢驗所深耕預防醫學領域，通過國家級實驗室標準審核，以嚴謹的臨床生化數據，為您與家人的健康管理提供最可靠的科學依據。</p>
+          <div class="hero-buttons">
+            <a href="#checkups" class="btn btn-primary">瀏覽檢查套組</a>
+            <a href="#booking" class="btn btn-secondary">預約諮詢</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-number">12+</div>
+              <div class="stat-label">健康檢查套組</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">224</div>
+              <div class="stat-label">過敏原檢測項目</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">9</div>
+              <div class="stat-label">基因檢測方案</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-right-icon">🔬</div>
+          <div class="hero-right-text">大華醫事檢驗所</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLINIC SHOWCASE -->
+  <section class="clinic-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">About Us</div>
+        <h2 class="section-title">大華醫事檢驗所</h2>
+        <p class="section-desc">位於彰化市崙平南路 532 號，擁有現代化的檢驗設備與專業的醫事檢驗團隊，致力於為民眾提供最可靠的健康檢查與檢驗服務。</p>
+      </div>
+      <div class="clinic-grid">
+        <img src="/manus-storage/dhlp1_44e89e15.webp" alt="大華醫事檢驗所外觀">
+        <img src="/manus-storage/dhlp4_4db8265b.webp" alt="大華醫事檢驗所街景">
+      </div>
+      <div class="clinic-grid">
+        <img src="/manus-storage/dhlp2_df583948.webp" alt="大華醫事檢驗所前台">
+        <img src="/manus-storage/dhlp3_04edabcc.webp" alt="大華醫事檢驗所內部">
+      </div>
+    </div>
+  </section>
+
+  <!-- HEALTH CHECKUPS -->
+  <section id="checkups" class="checkups-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Health Checkup Packages</div>
+        <h2 class="section-title">全身健康檢查套組</h2>
+        <p class="section-desc">從基礎篩檢到高階全方位健康評估，依據您的需求與年齡層，選擇最適合的健康檢查方案。</p>
+      </div>
+      <div class="checkups-toggle">
+        <div class="toggle-group">
+          <button class="toggle-btn active" onclick="switchPackageGroup('general')">基礎與進階</button>
+          <button class="toggle-btn" onclick="switchPackageGroup('special')">特定族群</button>
+        </div>
+      </div>
+      <div class="packages-grid" id="packagesContainer"></div>
+    </div>
+  </section>
+
+  <!-- GENE TESTING -->
+  <section id="gene" class="gene-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Gene Testing</div>
+        <h2 class="section-title">基因檢測系列</h2>
+        <p class="section-desc">基因檢測可提供了解自身之各項特質，分析您罹患疾病的風險與對藥物之特別反應，進而針對自己先天體質不足之處加以保健。</p>
+      </div>
+      <div class="gene-grid" id="geneContainer"></div>
+    </div>
+  </section>
+
+  <!-- SPECIALIZED TESTS -->
+  <section id="specialized" class="specialized-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Specialized Tests</div>
+        <h2 class="section-title">專項檢驗服務</h2>
+        <p class="section-desc">針對特定健康需求提供精準的專項檢驗，從過敏原追蹤到營養素評估。</p>
+      </div>
+      <div class="specialized-grid">
+        <div class="specialized-card allergy-card">
+          <div class="card-header">
+            <div class="card-icon">⚠️</div>
+            <div>
+              <div class="card-title">過敏原檢測</div>
+              <div class="card-subtitle">沒生病 ≠ 真健康！身體說不出的不適，就從抓出過敏原開始。</div>
+            </div>
+          </div>
+          <div class="allergy-items">
+            <div class="allergy-item" onclick="toggleAllergy(this)">急性過敏原檢測 66 項（IgE）</div>
+            <div class="allergy-item" onclick="toggleAllergy(this)">急慢性過敏原檢測 110 項（IgE + IgG）</div>
+            <div class="allergy-item" onclick="toggleAllergy(this)">慢性過敏原檢測 101 項（IgG）</div>
+            <div class="allergy-item" onclick="toggleAllergy(this)">急慢性過敏原檢測 224 項（最完整）</div>
+          </div>
+        </div>
+        <div>
+          <div class="specialized-card nutrition-card">
+            <div class="card-header">
+              <div class="card-icon">💊</div>
+              <div>
+                <div class="card-title">五大營養素檢測</div>
+                <div class="card-subtitle">精準評估體內關鍵營養素含量。</div>
+              </div>
+            </div>
+            <div class="nutrition-grid">
+              <div class="nutrition-item"><div class="nutrition-emoji">🧬</div><div class="nutrition-name">維生素 B12</div></div>
+              <div class="nutrition-item"><div class="nutrition-emoji">🌿</div><div class="nutrition-name">葉酸</div></div>
+              <div class="nutrition-item"><div class="nutrition-emoji">☀️</div><div class="nutrition-name">維生素 D</div></div>
+              <div class="nutrition-item"><div class="nutrition-emoji">🔴</div><div class="nutrition-name">Ferritin</div></div>
+              <div class="nutrition-item full"><div class="nutrition-emoji">⚡</div><div class="nutrition-name">鋅（Zinc）</div></div>
+            </div>
+          </div>
+          <div class="consultation-box">
+            <div class="consultation-title">不確定選哪個套組？</div>
+            <div class="consultation-desc">我們的專業醫事人員將根據您的年齡、家族病史與健康需求，為您量身推薦最適合的檢驗方案。</div>
+            <a href="#booking" class="consultation-link">預約免費諮詢 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Health Products</div>
+        <h2 class="section-title">健康保健產品</h2>
+        <p class="section-desc">精選高品質的營養補充與口腔保健產品，為您與家人的健康加分。</p>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-icon">💊</div>
+          <div class="product-name">兒童活力鈣咀嚼錠</div>
+          <div class="product-desc">以臨床骨代謝數據為基準，融合 4OA 有機複合鈣系統（牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣），搭配 D3/MK7 精準引導鈣質沉積，確保每一份營養都能精準轉化為細胞能量。</div>
+          <div class="product-features">
+            <div class="product-feature"><span class="product-feature-check">✓</span> 高效吸收配方</div>
+            <div class="product-feature"><span class="product-feature-check">✓</span> 適合兒童咀嚼</div>
+            <div class="product-feature"><span class="product-feature-check">✓</span> 骨骼發育支持</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">❤️</div>
+          <div class="product-name">嗨嚼寵物健康零食</div>
+          <div class="product-desc">嚴選天然蛋白膜與高純度葡萄糖胺，結合物理耐啃工藝，同時守護寵物的口腔清潔與關節健康，讓毛孩每一口都是雙重守護。</div>
+          <div class="product-features">
+            <div class="product-feature"><span class="product-feature-check">✓</span> 天然成分</div>
+            <div class="product-feature"><span class="product-feature-check">✓</span> 口腔清潔</div>
+            <div class="product-feature"><span class="product-feature-check">✓</span> 關節保健</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking" class="booking-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Contact &amp; Booking</div>
+        <h2 class="section-title">聯絡與預約諮詢</h2>
+        <p class="section-desc">歡迎透過以下方式與我們聯絡，或直接填寫預約表單。</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <div class="contact-title">LINE 官方帳號</div>
+          <div class="contact-info">@932cczax</div>
+          <a href="https://line.me/ti/p/@932cczax" target="_blank" class="contact-link">立即加入 →</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <div class="contact-title">諮詢專線</div>
+          <div class="contact-info">04-7616801</div>
+          <a href="tel:0447616801" class="contact-link">立即撥打 →</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <div class="contact-title">診所地址</div>
+          <div class="contact-info">彰化市崙平南路 532 號</div>
+          <a href="https://maps.google.com/?q=彰化市崙平南路532號" target="_blank" class="contact-link">Google 地圖 →</a>
+        </div>
+      </div>
+      <div class="booking-form-container">
+        <h3 class="form-title">預約專業諮詢</h3>
+        <p class="form-desc">填寫以下資料，我們將於工作日 24 小時內與您聯繫確認。</p>
+        <form id="bookingForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <input type="text" class="form-input" placeholder="您的姓名 / 單位名稱" required>
+            <input type="tel" class="form-input" placeholder="聯絡電話" required>
+          </div>
+          <select class="form-select" required>
+            <option value="">請選擇諮詢項目</option>
+            <option value="健康檢查">健康檢查</option>
+            <option value="基因檢測">基因檢測</option>
+            <option value="過敏原檢測">過敏原檢測</option>
+            <option value="其他">其他</option>
+          </select>
+          <textarea class="form-textarea" placeholder="請描述您的具體需求或想了解的套組..." required></textarea>
+          <button type="submit" class="form-submit">✉️ 送出預約諮詢</button>
+        </form>
+        <div id="formSuccess" style="display: none;">
+          <div class="form-success">
+            <div class="success-icon">✓</div>
+            <div class="success-title">預約資料已成功送出</div>
+            <div class="success-desc">我們將盡快與您聯繫，感謝您的信任。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-icon">🔬</div>
+      <div class="footer-brand-text">大華醫事檢驗所</div>
+    </div>
+    <div class="footer-info">彰化市崙平南路 532 號 · 04-7616801 · dahualab@gmail.com</div>
+    <div class="footer-copyright">&copy; 2026 大華醫事檢驗所. All rights reserved.</div>
+  </footer>
+
+  <!-- SOCIAL FAB -->
+  <div class="social-fab">
+    <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="social-btn facebook">f</a>
+    <a href="https://line.me/ti/p/@932cczax" target="_blank" class="social-btn line">LINE</a>
+  </div>
+
+  <script>
+    // 健康檢查套組數據
+    const packages = {
+      general: [
+        { id: "basic", name: "新生活健康檢查", icon: "💚", desc: "涵蓋血液、尿液、肝腎功能、三高等基礎項目，適合首次健檢或年度例行篩檢。" },
+        { id: "happy", name: "幸福型健康檢查", icon: "❤️", desc: "在基礎項目之上，增加心血管硬化指數分析、早期肝癌篩檢與糖化血色素。" },
+        { id: "refined", name: "精緻型健康檢查", icon: "🔬", desc: "進一步加入 B 型、C 型肝炎篩檢、甲狀腺功能分析、類風濕性關節炎與高敏感度發炎指標。" },
+        { id: "premium", name: "尊榮型健康檢查", icon: "👑", desc: "最完整的全方位健檢，包含胃幽門桿菌篩檢、過敏體質分析、荷爾蒙檢查與全套防癌腫瘤標記篩檢。" },
+        { id: "elite", name: "菁英型健康檢查", icon: "🧬", desc: "針對心血管與代謝深入分析，加入胰島素阻抗、心肌梗塞風險因子與骨質疏鬆風險評估。" },
+        { id: "antiage", name: "抗衰老健康檢查", icon: "🌿", desc: "結合基礎健檢與抗老荷爾蒙、性荷爾蒙結合球蛋白等指標，全面評估身體老化狀態。" },
+      ],
+      special: [
+        { id: "premarital", name: "婚前甜蜜健康檢查", icon: "💕", desc: "為準新人設計，包含地中海型貧血評估、傳染病篩檢、蠶豆症，以及男性精液品質分析或女性德國麻疹抗體檢查。" },
+        { id: "cancer", name: "防癌健康檢查", icon: "🛡️", desc: "針對男女不同器官的腫瘤標記進行專屬篩檢，早期發現潛在癌症風險。" },
+        { id: "liver", name: "肝臟組合檢查", icon: "🧡", desc: "針對肝炎病毒、肝功能與肝癌標記進行全面篩檢，適合有肝炎家族史或需要定期追蹤肝臟健康者。" },
+        { id: "std", name: "性病組合檢查", icon: "🔒", desc: "提供全面的性傳染病篩檢，包含梅毒、愛滋病毒、疱疹、披衣菌、淋病等。" },
+        { id: "fertility", name: "好孕連組合檢查", icon: "👶", desc: "備孕前的重要指標分析，男性提供精液品質與睪固酮，女性提供完整的荷爾蒙與卵巢功能評估。" },
+      ],
+    };
+
+    // 基因檢測數據
+    const geneTests = [
+      { name: "全基因圖譜掃描", desc: "涵蓋 40 種疾病、18 項癌症基因", highlight: true },
+      { name: "癌症預防基因檢測", desc: "男性 18 項 / 女性 19 項", highlight: false },
+      { name: "慢性病預防基因檢測", desc: "14 項慢性病基因", highlight: false },
+      { name: "心血管疾病預防基因", desc: "11 項心血管基因", highlight: false },
+      { name: "兒童天生潛能基因", desc: "10 項潛能基因", highlight: false },
+      { name: "體重管理基因", desc: "肥胖與減重體質基因", highlight: false },
+      { name: "逆齡美妍基因", desc: "皮膚修護與抗老因子", highlight: false },
+      { name: "喚時淨白基因", desc: "白皙與環境抗壓係數", highlight: false },
+    ];
+
+    let currentPackageGroup = 'general';
+
+    // 初始化
+    function init() {
+      renderPackages();
+      renderGenes();
+    }
+
+    // 渲染健康檢查套組
+    function renderPackages() {
+      const container = document.getElementById('packagesContainer');
+      const pkgs = packages[currentPackageGroup];
+      container.innerHTML = pkgs.map(pkg => `
+        <div class="package-card" onclick="togglePackageDetails(this)">
+          <div class="package-header">
+            <div class="package-icon">${pkg.icon}</div>
+            <div class="package-badge">查看詳情</div>
+          </div>
+          <div class="package-name">${pkg.name}</div>
+          <div class="package-desc">${pkg.desc}</div>
+          <div class="package-link">查看檢驗項目 ▼</div>
+          <div class="package-details">
+            <div class="package-details-title">包含以下主要檢驗項目：</div>
+            <ul class="package-details-list">
+              <li>✓ 血液常規檢查</li>
+              <li>✓ 尿液常規檢查</li>
+              <li>✓ 肝膽功能檢查</li>
+              <li>✓ 腎功能檢查</li>
+              <li>✓ 血脂肪檢查</li>
+              <li>✓ 血糖檢查</li>
+            </ul>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染基因檢測
+    function renderGenes() {
+      const container = document.getElementById('geneContainer');
+      container.innerHTML = geneTests.map(test => `
+        <div class="gene-card ${test.highlight ? 'highlight' : ''}">
+          <div class="gene-icon">🧬</div>
+          <div class="gene-name">${test.name}</div>
+          <div class="gene-desc">${test.desc}</div>
+        </div>
+      `).join('');
+    }
+
+    // 切換套組分類
+    function switchPackageGroup(group) {
+      currentPackageGroup = group;
+      document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderPackages();
+    }
+
+    // 切換套組詳情
+    function togglePackageDetails(card) {
+      const details = card.querySelector('.package-details');
+      details.classList.toggle('show');
+    }
+
+    // 切換過敏原項目
+    function toggleAllergy(item) {
+      item.style.backgroundColor = item.style.backgroundColor === 'rgb(20, 184, 166)' ? 'white' : '#14b8a6';
+      item.style.color = item.style.color === 'white' ? '#0f172a' : 'white';
+    }
+
+    // 處理表單提交
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      document.getElementById('bookingForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('bookingForm').style.display = 'block';
+        document.getElementById('formSuccess').style.display = 'none';
+        document.getElementById('bookingForm').reset();
+      }, 3000);
+    }
+
+    // 切換行動選單
+    function toggleMobileMenu() {
+      // 簡單實現，可根據需要擴展
+    }
+
+    // 初始化頁面
+    init();
+  </script>
+</body>
 </html>
