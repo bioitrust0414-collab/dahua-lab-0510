@@ -87,6 +87,21 @@
       align-items: center;
     }
 
+    /* 手機版選單展開樣式 */
+    .nav-links.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      width: 100%;
+      background: white;
+      padding: 24px;
+      border-bottom: 1px solid #e2e8f0;
+      gap: 16px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
     .nav-links a {
       text-decoration: none;
       color: inherit;
@@ -103,6 +118,7 @@
       color: white;
       border-radius: 9999px;
       cursor: pointer;
+      text-align: center;
     }
 
     .nav-links .btn-booking:hover {
@@ -116,11 +132,21 @@
       cursor: pointer;
       padding: 8px;
       color: #64748b;
+      font-size: 24px;
     }
 
     @media (min-width: 1024px) {
       .nav-links {
         display: flex;
+      }
+      .nav-links.active {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        padding: 0;
+        box-shadow: none;
+        width: auto;
+        border: none;
       }
       .nav-toggle {
         display: none;
@@ -255,32 +281,58 @@
     .hero-right {
       display: none;
       height: 520px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-radius: 80px;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      padding: 32px;
+      border-radius: 40px;
+      overflow: hidden;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     }
 
     @media (min-width: 1024px) {
       .hero-right {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        display: block;
       }
     }
 
-    .hero-right-icon {
-      font-size: 64px;
-      opacity: 0.5;
+    .hero-slideshow {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
 
-    .hero-right-text {
-      font-size: 14px;
-      opacity: 0.75;
+    .hero-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .hero-slideshow img.active {
+      opacity: 1;
+    }
+
+    .slide-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .slide-dot.active {
+      background: white;
     }
 
     /* CLINIC SHOWCASE */
@@ -479,13 +531,14 @@
 
     .package-details-list {
       list-style: none;
-      space-y: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .package-details-list li {
       font-size: 12px;
       color: #64748b;
-      margin-bottom: 4px;
     }
 
     /* GENE TESTING */
@@ -713,6 +766,7 @@
       border-radius: 24px;
       padding: 32px;
       color: white;
+      margin-top: 24px;
     }
 
     .consultation-title {
@@ -746,6 +800,52 @@
       background: #0284c7;
     }
 
+    /* PDF 表格對照區原生化樣式替代 */
+    .table-section {
+      padding: 48px 0;
+      background: white;
+    }
+    .table-title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #0f172a;
+    }
+    .overflow-x-auto {
+      overflow-x: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .w-full {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+    .w-full th {
+      background: #0f172a;
+      color: white;
+      padding: 16px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .w-full td {
+      padding: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #475569;
+    }
+    .w-full tr:last-child td {
+      border-bottom: none;
+    }
+    .font-bold-title {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
     /* PRODUCTS */
     .products-section {
       padding: 96px 0;
@@ -770,6 +870,9 @@
       padding: 32px;
       border: 1px solid #e2e8f0;
       transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .product-card:hover {
@@ -790,11 +893,11 @@
     }
 
     .product-card:nth-child(1) .product-icon {
-      background: #0ea5e9;
+      background: #d97706;
     }
 
     .product-card:nth-child(2) .product-icon {
-      background: #d97706;
+      background: #2e7d32;
     }
 
     .product-name {
@@ -815,6 +918,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-bottom: 28px;
     }
 
     .product-feature {
@@ -831,11 +935,40 @@
     }
 
     .product-card:nth-child(1) .product-feature-check {
-      color: #10b981;
+      color: #d97706;
     }
 
     .product-card:nth-child(2) .product-feature-check {
-      color: #d97706;
+      color: #2e7d32;
+    }
+
+    .product-action-btn {
+      display: block;
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .product-card:nth-child(1) .product-action-btn {
+      background: #eab308;
+      color: #0f172a;
+    }
+    .product-card:nth-child(1) .product-action-btn:hover {
+      background: #d97706;
+      color: white;
+    }
+
+    .product-card:nth-child(2) .product-action-btn {
+      background: #4caf50;
+      color: white;
+    }
+    .product-card:nth-child(2) .product-action-btn:hover {
+      background: #2e7d32;
     }
 
     /* BOOKING */
@@ -966,6 +1099,7 @@
       color: white;
       font-size: 14px;
       font-family: inherit;
+      width: 100%;
     }
 
     .form-input::placeholder,
@@ -981,6 +1115,11 @@
       border-color: #0369a1;
     }
 
+    .form-select option {
+      background: #0f172a;
+      color: white;
+    }
+
     .form-select {
       grid-column: 1 / -1;
     }
@@ -993,6 +1132,7 @@
 
     .form-submit {
       grid-column: 1 / -1;
+      width: 100%;
       padding: 20px;
       background: #0369a1;
       color: white;
@@ -1121,15 +1261,9 @@
     .social-btn.line {
       background: #06c755;
     }
-
-    .social-icon {
-      width: 24px;
-      height: 24px;
-    }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
   <nav>
     <div class="container">
       <a href="#hero" class="nav-brand">
@@ -1139,18 +1273,19 @@
           <p>Dahua Medical Laboratory</p>
         </div>
       </a>
-      <div class="nav-links">
-        <a href="#checkups">健康檢查</a>
-        <a href="#gene">基因檢測</a>
-        <a href="#specialized">專項檢驗</a>
-        <a href="#products">保健產品</a>
-        <a href="#booking" class="btn-booking">預約諮詢</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#checkups" onclick="closeMobileMenu()">健康檢查</a>
+        <a href="#gene" onclick="closeMobileMenu()">基因檢測</a>
+        <a href="#specialized" onclick="closeMobileMenu()">專項檢驗</a>
+        <a href="#products" onclick="closeMobileMenu()">保健產品</a>
+        <a href="mal1688/index.html" onclick="closeMobileMenu()">專業複合鈣</a>
+        <a href="heychew1688/index.html" onclick="closeMobileMenu()">寵物零嘴</a>
+        <a href="#booking" class="btn-booking" onclick="closeMobileMenu()">預約諮詢</a>
       </div>
       <button class="nav-toggle" onclick="toggleMobileMenu()">☰</button>
     </div>
   </nav>
 
-  <!-- HERO -->
   <section id="hero" class="hero-section">
     <div class="container">
       <div class="hero-content">
@@ -1178,14 +1313,23 @@
           </div>
         </div>
         <div class="hero-right">
-          <div class="hero-right-icon">🔬</div>
-          <div class="hero-right-text">大華醫事檢驗所</div>
+          <div class="hero-slideshow">
+            <img src="/dhlp1.webp" alt="大華醫事檢驗所" class="active">
+            <img src="/dhlp2.webp" alt="大華醫事檢驗所街景">
+            <img src="/dhlp3.webp" alt="大華醫事檢驗所前台">
+            <img src="/dhlp4.webp" alt="大華醫事檢驗所內部">
+            <div class="slide-dots">
+              <div class="slide-dot active" onclick="goToSlide(0)"></div>
+              <div class="slide-dot" onclick="goToSlide(1)"></div>
+              <div class="slide-dot" onclick="goToSlide(2)"></div>
+              <div class="slide-dot" onclick="goToSlide(3)"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CLINIC SHOWCASE -->
   <section class="clinic-section">
     <div class="container">
       <div class="section-header">
@@ -1194,17 +1338,16 @@
         <p class="section-desc">位於彰化市崙平南路 532 號，擁有現代化的檢驗設備與專業的醫事檢驗團隊，致力於為民眾提供最可靠的健康檢查與檢驗服務。</p>
       </div>
       <div class="clinic-grid">
-        <img src="/manus-storage/dhlp1_44e89e15.webp" alt="大華醫事檢驗所外觀">
-        <img src="/manus-storage/dhlp4_4db8265b.webp" alt="大華醫事檢驗所街景">
+        <img src="/dhlp1.webp" alt="大華醫事檢驗所外觀">
+        <img src="/dhlp2.webp" alt="大華醫事檢驗所街景">
       </div>
       <div class="clinic-grid">
-        <img src="/manus-storage/dhlp2_df583948.webp" alt="大華醫事檢驗所前台">
-        <img src="/manus-storage/dhlp3_04edabcc.webp" alt="大華醫事檢驗所內部">
+        <img src="/dhlp3.webp" alt="大華醫事檢驗所前台">
+        <img src="/dhlp4.webp" alt="大華醫事檢驗所內部">
       </div>
     </div>
   </section>
 
-  <!-- HEALTH CHECKUPS -->
   <section id="checkups" class="checkups-section">
     <div class="container">
       <div class="section-header">
@@ -1214,15 +1357,14 @@
       </div>
       <div class="checkups-toggle">
         <div class="toggle-group">
-          <button class="toggle-btn active" onclick="switchPackageGroup('general')">基礎與進階</button>
-          <button class="toggle-btn" onclick="switchPackageGroup('special')">特定族群</button>
+          <button class="toggle-btn active" onclick="switchPackageGroup('general', this)">基礎與進階</button>
+          <button class="toggle-btn" onclick="switchPackageGroup('special', this)">特定族群</button>
         </div>
       </div>
       <div class="packages-grid" id="packagesContainer"></div>
     </div>
   </section>
 
-  <!-- GENE TESTING -->
   <section id="gene" class="gene-section">
     <div class="container">
       <div class="section-header">
@@ -1234,7 +1376,6 @@
     </div>
   </section>
 
-  <!-- SPECIALIZED TESTS -->
   <section id="specialized" class="specialized-section">
     <div class="container">
       <div class="section-header">
@@ -1285,44 +1426,87 @@
     </div>
   </section>
 
-  <!-- PRODUCTS -->
+  <section class="table-section">
+    <div class="container">
+      <h3 class="table-title">大華醫學檢驗中心健康檢查套組項目</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th>檢驗項目</th>
+              <th>DH1</th><th>DH2</th><th>DH3</th>
+              <th>DH5</th><th>DH6</th><th>DH7</th>
+              <th>DHA</th><th>DHB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="font-bold-title">肝膽功能檢查</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">酒精性及藥物性</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">血液常規檢查</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">尿液常規檢查</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">腎功能檢查</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">痛風檢查(UA)</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">血糖/糖尿病</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">血脂肪/膽固醇</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">心肌酵素(CPK)</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">胰臟功能(Amylase)</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">肝癌篩檢(AFP)</td><td>-</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">B型肝炎檢查</td><td>-</td><td>-</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">C型肝炎檢查</td><td>-</td><td>-</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">甲狀腺功能檢查</td><td>-</td><td>-</td><td>V</td><td>V</td><td>V</td><td>-</td><td>V</td><td>V</td></tr>
+            <tr><td class="font-bold-title">腫瘤標記防癌篩</td><td>-</td><td>-</td><td>-</td><td>V</td><td>-</td><td>V</td><td>-</td><td>V</td></tr>
+            <tr><td class="font-bold-title">賀爾蒙檢查/激素</td><td>-</td><td>-</td><td>-</td><td>V</td><td>-</td><td>-</td><td>-</td><td>V</td></tr>
+            <tr><td class="font-bold-title">胃幽門桿菌篩檢</td><td>-</td><td>-</td><td>-</td><td>V</td><td>-</td><td>-</td><td>-</td><td>V</td></tr>
+            <tr><td class="font-bold-title">維他命D</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>V</td><td>V</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <section id="products" class="products-section">
     <div class="container">
       <div class="section-header">
         <div class="section-badge">Health Products</div>
         <h2 class="section-title">健康保健產品</h2>
-        <p class="section-desc">精選高品質的營養補充與口腔保健產品，為您與家人的健康加分。</p>
+        <p class="section-desc">精選高品質的營養補充與寵物手作食品，為您與全家（包含毛孩）的健康加分。</p>
       </div>
       <div class="products-grid">
         <div class="product-card">
-          <div class="product-icon">💊</div>
-          <div class="product-name">兒童活力鈣咀嚼錠</div>
-          <div class="product-desc">以臨床骨代謝數據為基準，融合 4OA 有機複合鈣系統（牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣），搭配 D3/MK7 精準引導鈣質沉積，確保每一份營養都能精準轉化為細胞能量。</div>
-          <div class="product-features">
-            <div class="product-feature"><span class="product-feature-check">✓</span> 高效吸收配方</div>
-            <div class="product-feature"><span class="product-feature-check">✓</span> 適合兒童咀嚼</div>
-            <div class="product-feature"><span class="product-feature-check">✓</span> 骨骼發育支持</div>
+          <div>
+            <div class="product-icon">🦴</div>
+            <div class="product-name">專業家庭發育與複合鈣系統</div>
+            <div class="product-desc">以臨床骨代謝數據為基準，引進大西洋無污染天然紅藻海藻鈣，融合多元優質複合鈣源 × 關鍵導航因子 D3+K2。確保每一份營養都能精準引導鈣質沉積，全方位支援兒童發育與全家人骨骼健康。</div>
+            <div class="product-features">
+              <div class="product-feature"><span class="product-feature-check">✓</span> 天然紅藻海藻鈣高吸收配方</div>
+              <div class="product-feature"><span class="product-feature-check">✓</span> 水果風味優良依從性咀嚼錠</div>
+              <div class="product-feature"><span class="product-feature-check">✓</span> 兒童發育與長輩骨骼強力支持</div>
+            </div>
           </div>
+          <a href="mal1688/index.html" class="product-action-btn">查看科學實證與完整系列 ➔</a>
         </div>
+        
         <div class="product-card">
-          <div class="product-icon">❤️</div>
-          <div class="product-name">嗨嚼寵物健康零食</div>
-          <div class="product-desc">嚴選天然蛋白膜與高純度葡萄糖胺，結合物理耐啃工藝，同時守護寵物的口腔清潔與關節健康，讓毛孩每一口都是雙重守護。</div>
-          <div class="product-features">
-            <div class="product-feature"><span class="product-feature-check">✓</span> 天然成分</div>
-            <div class="product-feature"><span class="product-feature-check">✓</span> 口腔清潔</div>
-            <div class="product-feature"><span class="product-feature-check">✓</span> 關節保健</div>
+          <div>
+            <div class="product-icon">🐾</div>
+            <div class="product-name">Paludo & Mila 天然手作寵物零嘴</div>
+            <div class="product-desc">在地天然、純粹手作。使用 100% 低溫烘焙鮮純雞胸肉（頂級雞肉薄片），無任何化學添加物或人工防腐劑。以溫暖工藝封存天然蛋白營養，守護家中毛孩的每一口純粹滋味。</div>
+            <div class="product-features">
+              <div class="product-feature"><span class="product-feature-check">✓</span> 100% 國產新鮮雞胸肉製作</div>
+              <div class="product-feature"><span class="product-feature-check">✓</span> 無鹽無添加、低溫烘焙熟化</div>
+              <div class="product-feature"><span class="product-feature-check">✓</span> 口腔清潔、挑嘴毛孩健康零嘴</div>
+            </div>
           </div>
+          <a href="heychew1688/index.html" class="product-action-btn">查看毛孩手工零嘴目錄 ➔</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BOOKING -->
   <section id="booking" class="booking-section">
     <div class="container">
       <div class="section-header">
-        <div class="section-badge">Contact &amp; Booking</div>
+        <div class="section-badge">Contact & Booking</div>
         <h2 class="section-title">聯絡與預約諮詢</h2>
         <p class="section-desc">歡迎透過以下方式與我們聯絡，或直接填寫預約表單。</p>
       </div>
@@ -1337,7 +1521,7 @@
           <div class="contact-icon">📞</div>
           <div class="contact-title">諮詢專線</div>
           <div class="contact-info">04-7616801</div>
-          <a href="tel:0447616801" class="contact-link">立即撥打 →</a>
+          <a href="tel:047616801" class="contact-link">立即撥打 →</a>
         </div>
         <div class="contact-card">
           <div class="contact-icon">📍</div>
@@ -1351,18 +1535,51 @@
         <p class="form-desc">填寫以下資料，我們將於工作日 24 小時內與您聯繫確認。</p>
         <form id="bookingForm" onsubmit="handleFormSubmit(event)">
           <div class="form-group">
-            <input type="text" class="form-input" placeholder="您的姓名 / 單位名稱" required>
-            <input type="tel" class="form-input" placeholder="聯絡電話" required>
+            <input type="text" id="fieldName" class="form-input" placeholder="您的姓名 / 單位名稱" required>
+            <input type="tel" id="fieldPhone" class="form-input" placeholder="聯絡電話" required>
           </div>
           <select class="form-select" required>
-            <option value="">請選擇諮詢項目</option>
-            <option value="健康檢查">健康檢查</option>
-            <option value="基因檢測">基因檢測</option>
-            <option value="過敏原檢測">過敏原檢測</option>
-            <option value="其他">其他</option>
+            <option value="">請選擇諮詢套組</option>
+            <optgroup label="── 基礎與進階健康檢查 ──">
+              <option value="新生活健康檢查">新生活健康檢查</option>
+              <option value="幸福型健康檢查">幸福型健康檢查</option>
+              <option value="精緻型健康檢查">精緻型健康檢查</option>
+              <option value="尊榮型健康檢查">尊榮型健康檢查</option>
+              <option value="菁英型健康檢查">菁英型健康檢查</option>
+              <option value="抗衰老健康檢查">抗衰老健康檢查</option>
+            </optgroup>
+            <optgroup label="── 特定族群健康檢查 ──">
+              <option value="婚前甜蜜健康檢查">婚前甜蜜健康檢查</option>
+              <option value="防癌健康檢查">防癌健康檢查</option>
+              <option value="肝臟組合檢查">肝臟組合檢查</option>
+              <option value="性病組合檢查">性病組合檢查</option>
+              <option value="好孕連組合檢查">好孕連組合檢查</option>
+            </optgroup>
+            <optgroup label="── 基因檢測 ──">
+              <option value="全基因圖譜掃描">全基因圖譜掃描</option>
+              <option value="癌症預防基因檢測">癌症預防基因檢測</option>
+              <option value="慢性病預防基因檢測">慢性病預防基因檢測</option>
+              <option value="心血管疾病預防基因">心血管疾病預防基因</option>
+              <option value="兒童天生潛能基因">兒童天生潛能基因</option>
+              <option value="體重管理基因">體重管理基因</option>
+              <option value="逆齡美妍基因">逆齡美妍基因</option>
+              <option value="喚時淨白基因">喚時淨白基因</option>
+            </optgroup>
+            <optgroup label="── 過敏原檢測 ──">
+              <option value="急性過敏原檢測 66 項（IgE）">急性過敏原檢測 66 項（IgE）</option>
+              <option value="急慢性過敏原檢測 110 項（IgE + IgG）">急慢性過敏原檢測 110 項（IgE + IgG）</option>
+              <option value="慢性過敏原檢測 101 項（IgG）">慢性過敏原檢測 101 項（IgG）</option>
+              <option value="急慢性過敏原檢測 224 項">急慢性過敏原檢測 224 項（最完整）</option>
+            </optgroup>
+            <optgroup label="── 專項檢驗 ──">
+              <option value="五大營養素檢測">五大營養素檢測</option>
+            </optgroup>
+            <optgroup label="──────────────">
+              <option value="其他">其他 / 不確定，需要諮詢</option>
+            </optgroup>
           </select>
-          <textarea class="form-textarea" placeholder="請描述您的具體需求或想了解的套組..." required></textarea>
-          <button type="submit" class="form-submit">✉️ 送出預約諮詢</button>
+          <textarea id="fieldNote" class="form-textarea" placeholder="請描述您的具體需求或想了解的套組..." required></textarea>
+          <button type="submit" class="form-submit">💬 透過 LINE 送出預約</button>
         </form>
         <div id="formSuccess" style="display: none;">
           <div class="form-success">
@@ -1375,43 +1592,83 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-brand">
       <div class="footer-icon">🔬</div>
       <div class="footer-brand-text">大華醫事檢驗所</div>
     </div>
     <div class="footer-info">彰化市崙平南路 532 號 · 04-7616801 · dahualab@gmail.com</div>
-    <div class="footer-copyright">&copy; 2026 大華醫事檢驗所. All rights reserved.</div>
+    <div class="footer-copyright">© 2026 大華醫事檢驗所. All rights reserved.</div>
   </footer>
 
-  <!-- SOCIAL FAB -->
   <div class="social-fab">
     <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="social-btn facebook">f</a>
     <a href="https://line.me/ti/p/@932cczax" target="_blank" class="social-btn line">LINE</a>
   </div>
 
   <script>
-    // 健康檢查套組數據
     const packages = {
       general: [
-        { id: "basic", name: "新生活健康檢查", icon: "💚", desc: "涵蓋血液、尿液、肝腎功能、三高等基礎項目，適合首次健檢或年度例行篩檢。" },
-        { id: "happy", name: "幸福型健康檢查", icon: "❤️", desc: "在基礎項目之上，增加心血管硬化指數分析、早期肝癌篩檢與糖化血色素。" },
-        { id: "refined", name: "精緻型健康檢查", icon: "🔬", desc: "進一步加入 B 型、C 型肝炎篩檢、甲狀腺功能分析、類風濕性關節炎與高敏感度發炎指標。" },
-        { id: "premium", name: "尊榮型健康檢查", icon: "👑", desc: "最完整的全方位健檢，包含胃幽門桿菌篩檢、過敏體質分析、荷爾蒙檢查與全套防癌腫瘤標記篩檢。" },
-        { id: "elite", name: "菁英型健康檢查", icon: "🧬", desc: "針對心血管與代謝深入分析，加入胰島素阻抗、心肌梗塞風險因子與骨質疏鬆風險評估。" },
-        { id: "antiage", name: "抗衰老健康檢查", icon: "🌿", desc: "結合基礎健檢與抗老荷爾蒙、性荷爾蒙結合球蛋白等指標，全面評估身體老化狀態。" },
+        {
+          id: "basic", name: "DH1 新生活健康檢查", icon: "💚",
+          desc: "涵蓋血液、尿液、肝腎功能、三高等基礎項目，適合首次健檢或年度例行篩檢。",
+          items: ["血液常規（15項）", "尿液常規（16項）", "肝功能（GOT / GPT 等 6 項）", "膽道功能（T-Bil / D-Bil 等）", "酒精性肝炎（r-GT）", "腎功能（BUN / Cre）", "痛風（UA）", "膽固醇", "中性脂肪", "血糖（AC sugar）", "胰臟（α-amylase）", "心肌酵素（CPK）"]
+        },
+        {
+          id: "happy", name: "DH2 幸福型健康檢查", icon: "❤️",
+          desc: "在基礎項目之上，增加心血管硬化指數分析、早期肝癌篩檢與糖化血色素。",
+          items: ["包含 DH1 全部項目", "高密度膽固醇（HDL-C）", "低密度膽固醇（LDL-C）", "血管硬化指數", "肝癌篩檢（AFP）", "糖化血色素（HbA1c）"]
+        },
+        {
+          id: "refined", name: "DH3 精緻型健康檢查", icon: "🔬",
+          desc: "進一步加入 B 型、C 型肝炎篩檢、甲狀腺功能分析、類風濕性關節炎與高敏感度發炎指標。",
+          items: ["包含 DH2 全部項目", "B 型肝炎表面抗原／抗體（HBsAg / HBsAb）", "C 型肝炎抗體（Anti-HCV）", "甲狀腺功能（T4 / TSH）", "類風濕關節炎（RA）", "高敏感度發炎指標（hsCRP）"]
+        },
+        {
+          id: "premium", name: "DH5 尊榮型健康檢查", icon: "👑",
+          desc: "最完整的全方位健檢，包含胃幽門桿菌篩檢、過敏體質分析、荷爾蒙檢查與全套防癌腫瘤標記篩檢。",
+          items: ["包含 DH3 全部項目", "胃幽門桿菌（HP）", "過敏性體質（IgE）", "糞便潛血（FOBT）", "心肌梗塞風險（Homocysteine）", "荷爾蒙（Hormone）", "全套防癌腫瘤標記篩檢"]
+        },
+        {
+          id: "elite", name: "DHA 菁英型健康檢查", icon: "🧬",
+          desc: "針對心血管與代謝深入分析，加入胰島素阻抗、骨質疏鬆風險、全套腫瘤標記等高階指標。",
+          items: ["肝膽功能（GOT / GPT / TP / ALB 等）", "酒精／藥物性肝炎（r-GT）", "腎功能（BUN / Cre / eGFR）", "胰島素阻抗", "心血管風險（hsCRP / NT-PRO BNP）", "腫瘤標記", "維他命 D", "可體松（Cortisol）", "發炎指標（ESR）", "Ferritin / Folate / B12", "抗核抗體（ANA）"]
+        },
+        {
+          id: "antiage", name: "DH12 抗衰老健康檢查", icon: "🌿",
+          desc: "結合基礎健檢與抗老荷爾蒙、性荷爾蒙結合球蛋白等指標，全面評估身體老化狀態。",
+          items: ["包含 DH2 全部項目", "雄性激素（Testosterone）", "雌性激素（Estrogen）", "抗老壓力荷爾蒙（DHEA-S）", "甲狀腺（TSH）", "性荷爾蒙結合球蛋白（SHBG）"]
+        },
       ],
       special: [
-        { id: "premarital", name: "婚前甜蜜健康檢查", icon: "💕", desc: "為準新人設計，包含地中海型貧血評估、傳染病篩檢、蠶豆症，以及男性精液品質分析或女性德國麻疹抗體檢查。" },
-        { id: "cancer", name: "防癌健康檢查", icon: "🛡️", desc: "針對男女不同器官的腫瘤標記進行專屬篩檢，早期發現潛在癌症風險。" },
-        { id: "liver", name: "肝臟組合檢查", icon: "🧡", desc: "針對肝炎病毒、肝功能與肝癌標記進行全面篩檢，適合有肝炎家族史或需要定期追蹤肝臟健康者。" },
-        { id: "std", name: "性病組合檢查", icon: "🔒", desc: "提供全面的性傳染病篩檢，包含梅毒、愛滋病毒、疱疹、披衣菌、淋病等。" },
-        { id: "fertility", name: "好孕連組合檢查", icon: "👶", desc: "備孕前的重要指標分析，男性提供精液品質與睪固酮，女性提供完整的荷爾蒙與卵巢功能評估。" },
+        {
+          id: "premarital", name: "DH6 婚前甜蜜健康檢查", icon: "💕",
+          desc: "為準新人設計，包含地中海型貧血評估、傳染病篩檢、蠶豆症，以及男女性別專屬項目。",
+          items: ["地中海型貧血評估", "血液／尿液常規", "肝腎功能、痛風、血脂、血糖", "B 型／C 型肝炎", "梅毒（VDRL）", "愛滋病毒（HIV）", "血型（ABO / Rh）", "蠶豆症", "♂ 男性：精液分析", "♀ 女性：德國麻疹抗體"]
+        },
+        {
+          id: "cancer", name: "DH7 防癌健康檢查", icon: "🛡️",
+          desc: "針對男女不同器官的腫瘤標記進行專屬篩檢，早期發現潛在癌症風險。",
+          items: ["♂ 男性：AFP、CEA、PSA、CA-199、CA72-4、CYFRA21-1、EBV-IgA、β-HCG", "♀ 女性：AFP、CEA、CA-199、CA72-4、CYFRA21-1、CA-125、CA-153、β-HCG"]
+        },
+        {
+          id: "liver", name: "DH8 肝臟組合檢查", icon: "🧡",
+          desc: "針對肝炎病毒、肝功能與肝癌標記進行全面篩檢，適合有肝炎家族史或需定期追蹤者。",
+          items: ["肝膽功能 9 項（GOT / GPT / TP / ALB / GLO / A/G / Alk-P / T-Bil / D-Bil）", "酒精性肝炎（r-GT）", "B 型肝炎（HBsAg / HBeAg / HBsAb）", "C 型肝炎（Anti-HCV）", "肝癌篩檢（AFP）", "A 型肝炎抗體（HAV-IgG）"]
+        },
+        {
+          id: "std", name: "DH9 性病組合檢查", icon: "🔒",
+          desc: "提供全面的性傳染病篩檢，包含梅毒、愛滋病毒、疱疹、披衣菌、淋病等。",
+          items: ["梅毒（VDRL / TPHA）", "愛滋病毒抗體（HIV Ab）", "疱疹第二型（HSV II IgG）", "披衣菌（Chlamydia IgG）", "淋病（Gonozyme）", "尿液常規"]
+        },
+        {
+          id: "fertility", name: "DH10 好孕連連組合檢查", icon: "👶",
+          desc: "備孕前的重要指標 analysis，男女分別提供精準的生育力評估。",
+          items: ["♂ 男性：精液分析、睪固酮（Testosterone）", "♀ 女性：血液／尿液常規、濾泡刺激素（FSH）、黃體刺激素（LH）、泌乳激素（Prolactin）、甲狀腺（T4 / TSH）、抗穆勒氏管荷爾蒙（AMH）"]
+        },
       ],
     };
 
-    // 基因檢測數據
     const geneTests = [
       { name: "全基因圖譜掃描", desc: "涵蓋 40 種疾病、18 項癌症基因", highlight: true },
       { name: "癌症預防基因檢測", desc: "男性 18 項 / 女性 19 項", highlight: false },
@@ -1425,18 +1682,35 @@
 
     let currentPackageGroup = 'general';
 
-    // 初始化
+    // Hero slideshow
+    let slideIndex = 0;
+    const slideImages = document.querySelectorAll('.hero-slideshow img');
+    const slideDots = document.querySelectorAll('.slide-dot');
+
+    function goToSlide(index) {
+      slideImages[slideIndex].classList.remove('active');
+      slideDots[slideIndex].classList.remove('active');
+      slideIndex = index;
+      slideImages[slideIndex].classList.add('active');
+      slideDots[slideIndex].classList.add('active');
+    }
+
+    function nextSlide() {
+      goToSlide((slideIndex + 1) % slideImages.length);
+    }
+
+    setInterval(nextSlide, 3000);
+
     function init() {
       renderPackages();
       renderGenes();
     }
 
-    // 渲染健康檢查套組
     function renderPackages() {
       const container = document.getElementById('packagesContainer');
       const pkgs = packages[currentPackageGroup];
       container.innerHTML = pkgs.map(pkg => `
-        <div class="package-card" onclick="togglePackageDetails(this)">
+        <div class="package-card" onclick="togglePackageDetails(event, this)">
           <div class="package-header">
             <div class="package-icon">${pkg.icon}</div>
             <div class="package-badge">查看詳情</div>
@@ -1447,19 +1721,13 @@
           <div class="package-details">
             <div class="package-details-title">包含以下主要檢驗項目：</div>
             <ul class="package-details-list">
-              <li>✓ 血液常規檢查</li>
-              <li>✓ 尿液常規檢查</li>
-              <li>✓ 肝膽功能檢查</li>
-              <li>✓ 腎功能檢查</li>
-              <li>✓ 血脂肪檢查</li>
-              <li>✓ 血糖檢查</li>
+              ${pkg.items.map(item => `<li>✓ ${item}</li>`).join('')}
             </ul>
           </div>
         </div>
       `).join('');
     }
 
-    // 渲染基因檢測
     function renderGenes() {
       const container = document.getElementById('geneContainer');
       container.innerHTML = geneTests.map(test => `
@@ -1471,44 +1739,57 @@
       `).join('');
     }
 
-    // 切換套組分類
-    function switchPackageGroup(group) {
+    function switchPackageGroup(group, btnEl) {
       currentPackageGroup = group;
       document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      btnEl.classList.add('active');
       renderPackages();
     }
 
-    // 切換套組詳情
-    function togglePackageDetails(card) {
+    function togglePackageDetails(event, card) {
       const details = card.querySelector('.package-details');
       details.classList.toggle('show');
     }
 
-    // 切換過敏原項目
     function toggleAllergy(item) {
-      item.style.backgroundColor = item.style.backgroundColor === 'rgb(20, 184, 166)' ? 'white' : '#14b8a6';
-      item.style.color = item.style.color === 'white' ? '#0f172a' : 'white';
+      if (item.style.backgroundColor === 'rgb(20, 184, 166)') {
+        item.style.backgroundColor = 'white';
+        item.style.color = '#0f172a';
+      } else {
+        item.style.backgroundColor = '#14b8a6';
+        item.style.color = 'white';
+      }
     }
 
-    // 處理表單提交
     function handleFormSubmit(event) {
       event.preventDefault();
+      const name  = document.getElementById('fieldName').value.trim();
+      const phone = document.getElementById('fieldPhone').value.trim();
+      const pkg   = document.querySelector('#bookingForm .form-select').value;
+      const note  = document.getElementById('fieldNote').value.trim();
+
+      const msg = `【大華醫事檢驗所預約諮詢】\n姓名：${name}\n電話：${phone}\n諮詢套組：${pkg}\n備註：${note}`;
+      window.open(`https://line.me/R/oaMessage/@932cczax/?text=${encodeURIComponent(msg)}`, '_blank');
+
       document.getElementById('bookingForm').style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
       setTimeout(() => {
         document.getElementById('bookingForm').style.display = 'block';
         document.getElementById('formSuccess').style.display = 'none';
         document.getElementById('bookingForm').reset();
-      }, 3000);
+      }, 4000);
     }
 
-    // 切換行動選單
     function toggleMobileMenu() {
-      // 簡單實現，可根據需要擴展
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
     }
 
-    // 初始化頁面
+    function closeMobileMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.remove('active');
+    }
+
     init();
   </script>
 </body>
