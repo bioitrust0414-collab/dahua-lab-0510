@@ -3,16 +3,23 @@ import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// 解決 ESM 模組中沒有 __dirname 的問題
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// 1. 如果你在后端有 API 路由，写在这里，例如：
-// app.get("/api/hello", (req, res) => res.json({ message: "Hello" }));
+// -------------------------------------------------------------
+// 1. 在這裡編寫你的後端 API 路由 (範例)
+// -------------------------------------------------------------
+app.get("/api/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
 
-// 2. 本地开发 / 传统生产环境下的静态文件兜底
-// 注意：在 Vercel 线上，这段代码不会被触发，因为 Vercel 自身的 rewrites 优先级更高
+// -------------------------------------------------------------
+// 2. 靜態檔案託管與前端路由兜底 (SPA 專用)
+// -------------------------------------------------------------
+// 判斷靜態檔案路徑：考慮本地開發與打包後的路徑差異
 const staticPath =
   process.env.NODE_ENV === "production"
     ? path.resolve(__dirname, "public")
@@ -20,19 +27,28 @@ const staticPath =
 
 app.use(express.static(staticPath));
 
-app.get("*", (_req, res) => {
+// 處理前端路由（如 wouter / react-router），將所有非 API 的請求導向 index.html
+app.get("*", (req, res, next) => {
+  // 如果是 API 請求但沒匹配到，不應該回傳 index.html，直接丟給 404
+  if (req.path.startsWith("/api/")) {
+    return next();
+  }
   res.sendFile(path.join(staticPath, "index.html"));
 });
 
-// 3. 核心修改：如果是 Vercel 环境，【禁止】调用 listen()，直接导出 app
-// 如果是本地开发环境，才启动传统服务器
-if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+// -------------------------------------------------------------
+// 3. 環境判斷：只有在「非 Vercel 環境」下才啟動監聽埠口
+// -------------------------------------------------------------
+if (!process.env.VERCEL) {
   const port = process.env.PORT || 3000;
   const server = createServer(app);
+  
   server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
+    console.log(`【本地伺服器】執行於 http://localhost:${port}/`);
   });
 }
 
-// 4. 必须默认导出 Express 实例，供 Vercel Serverless 运行时调用
+// -------------------------------------------------------------
+// 4. 關鍵：必須預設匯出 (export default) app 實例供 Vercel 接管
+// -------------------------------------------------------------
 export default app;
