@@ -1,17 +1,1 @@
-{
-  "version": 2,
-  "framework": "vite",
-  "outputDirectory": "dist/public",
-  "regions": ["sin1"],
-  "functions": {
-    "server/index.ts": {
-      "runtime": "@vercel/node"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+
