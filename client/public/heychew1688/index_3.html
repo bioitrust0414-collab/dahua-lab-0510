@@ -175,12 +175,12 @@
                 <div class="bg-white rounded-2xl p-8 border border-brand-border shadow-sm text-center">
                     <span class="text-4xl mb-6 block">🌱</span>
                     <h3 class="text-lg font-bold text-brand-dark mb-3">100% 天然純淨原肉</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed">嚴選優質雞、牛、鴨與特級豬耳、里肌原肉，堅持低溫與冷凍乾燥，鎖住營養。</p>
+                    <p class="text-sm text-brand-muted leading-relaxed">嚴選優質雞、牛、鴨原型純肉，堅持低溫與冷凍乾燥，鎖住營養與鮮甜原始風味。</p>
                 </div>
                 <div class="bg-white rounded-2xl p-8 border border-brand-border shadow-sm text-center">
                     <span class="text-4xl mb-6 block">🥩</span>
                     <h3 class="text-lg font-bold text-brand-dark mb-3">生技機能加強</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed">特別針對全齡犬貓調配，黃金比例注入珍貴「蛋殼膜」與「離胺酸」，保養更精準。</p>
+                    <p class="text-sm text-brand-muted leading-relaxed">特別針對全齡犬貓調配，黃金比例注入珍貴「義大利蛋殼膜」與「高純度離胺酸」，保養更精準。</p>
                 </div>
                 <div class="bg-white rounded-2xl p-8 border border-brand-border shadow-sm text-center">
                     <span class="text-4xl mb-6 block">🛡️</span>
@@ -237,7 +237,7 @@
                         時光遷移，以前陪伴在阿公身邊的小狗小貓，現在何嘗不是我們最親近的家人？
                     </p>
                     <p class="text-base">
-                        既然是家人，就應該與我們一樣，享受著最自然、最沒有負擔的原型食物美味[cite: 1]。秉持著這份對家人的愛，「HeyChew 嗨嚼」將記憶中阿公桌上的那盤「豬耳朵」與「鮮切原肉」，升級為現代寵物的頂級保養美學[cite: 1]。我們堅持成分完全透明公開，只留下最新鮮的營養[cite: 1]。
+                        既然是家人，就應該與我們一樣，享受著最自然、最沒有負擔的原型食物美味[cite: 1]。秉持著這份對家人的愛，「HeyChew 嗨嚼」將記憶中阿公桌上的那份溫柔與「鮮切原肉」，升級為現代寵物的頂級保養美學[cite: 1]。我們堅持成分完全透明公開，只留下最新鮮的營養[cite: 1]。
                     </p>
                 </div>
             </div>
@@ -428,14 +428,62 @@
 
     <!-- 前端核心控制 JavaScript -->
     <script>
-        // 6 SKU 機能資料庫（完全對齊您的 6 張實體產品圖檔與機能分類）
+        // 6 SKU 精準機能資料庫（文案與實體產品、圖片、機能分類完美勾稽版）
         const productsDatabase = [
-            { id: 1, name: "凍乾雞胸肉 義大利蛋殼膜", category: "joint", badge: "🦴 關節守護", imgCode: "heychewp1.jpg", summary: "添加珍貴蛋殼膜，富含天然葡萄糖胺與膠原蛋白。嚴選優質豬耳朵原型烘培，結構強韌幫助潔牙卸壓，同時強力守護髕骨與靈活關節。", prices: { bag: 180, can: 825 } },
-            { id: 2, name: "凍乾牛肉 紐西蘭草飼牛", category: "joint", badge: "🦴 關節守護", imgCode: "heychewp4.jpg", summary: "添加機能蛋殼膜核心成份。挑選肉質最緊實且超低脂肪的新鮮豬里肌肉，經低溫烘焙呈現純肉原始香氣，支撐犬貓每日跃動力。", prices: { bag: 180, can: 825 } },
-            { id: 3, name: "急速鎖鮮 凍乾鴨肉丁", category: "joint", badge: "🦴 關節守護", imgCode: "heychewp3.jpg", summary: "1公克1塊黃金規格，黃金比例融入蛋殼膜成份。採用真空冷凍乾燥技術鎖住多汁營養，酥脆鬆軟好入口，全齡犬貓關節保養首選。", prices: { bag: 180, can: 825 } },
-            { id: 4, name: "凍乾雞胸肉 離胺酸加強添加", category: "lysine", badge: "🛡️ 離胺酸加強", imgCode: "heychewp2.jpg", summary: "高純度離胺酸加強配方。低脂雞胸肉拌入天然排毛貓草，並注入高規格離胺酸，日常輕鬆餵食，全面拉高呼吸道與眼鼻防護網。", prices: { bag: 180, can: 825 } },
-            { id: 5, name: "極速鎖鮮 凍乾草飼牛 (加強版)", category: "lysine", badge: "🛡️ 離胺酸加強", imgCode: "heychewp5.jpg", summary: "1公克1塊黃金規格。頂級真空凍乾雞丁完美融合高規離胺酸，專專為台灣潮濕多雨氣候調配，有效提升全齡犬貓日常環境適應力。", prices: { bag: 180, can: 825 } },
-            { id: 6, name: "舒壓溫和 宜蘭在地凍乾鴨肉 (加強版)", category: "lysine", badge: "🛡️ 離胺酸加強", imgCode: "heychewp6.jpg", summary: "天然雞肉片與膳食纖維貓草的黃金結合，深度融入離胺酸成份。針對易哈啾、易流眼淚的敏感體質毛孩進行深度的呼吸道免疫調整。", prices: { bag: 180, can: 825 } }
+            { 
+                id: 1, 
+                name: "凍乾雞胸肉 義大利蛋殼膜", 
+                category: "joint", 
+                badge: "🦴 關節守護", 
+                imgCode: "heychewp1.jpg", 
+                summary: "嚴選在地優質低脂雞胸肉原型，採用真空冷凍乾燥技術鎖住飽滿肉香。黃金比例注入珍貴「義大利蛋殼膜」核心保養成分，富含天然葡萄糖胺與關鍵膠原蛋白，是全齡犬貓強力守護髕骨與靈活關節的每日精準首選。", 
+                prices: { bag: 180, can: 825 } 
+            },
+            { 
+                id: 2, 
+                name: "凍乾雞胸肉 離胺酸加強添加", 
+                category: "lysine", 
+                badge: "🛡️ 離胺酸加強", 
+                imgCode: "heychewp2.jpg", 
+                summary: "以極致純淨的低脂雞胸肉為基底，拌入富含膳食纖維的天然溫和貓草，並精準融入高純度「離胺酸」加強配方。日常輕鬆餵食無負擔，全面拉高犬貓呼吸道健康與眼鼻防護網，維持日常好體質。", 
+                prices: { bag: 180, can: 825 } 
+            },
+            { 
+                id: 3, 
+                name: "急速鎖鮮 凍乾鴨肉丁", 
+                category: "joint", 
+                badge: "🦴 關節守護", 
+                imgCode: "heychewp3.jpg", 
+                summary: "堅持「1公克1塊」黃金規格切丁，採用低敏優質鴨肉原料。結合生技機能，深度融入「義大利蛋殼膜」營養成分，真空凍乾後口感酥脆鬆軟好入口，讓敏感體質的毛孩也能一邊享受頂級純肉、一邊顧好關節躍動力。", 
+                prices: { bag: 180, can: 825 } 
+            },
+            { 
+                id: 4, 
+                name: "凍乾牛肉 紐西蘭草飼牛", 
+                category: "joint", 
+                badge: "🦴 關節守護", 
+                imgCode: "heychewp4.jpg", 
+                summary: "特選肉質緊實、高鐵質且低脂肪的優質紐西蘭草飼牛原型純肉丁，低溫鎖鮮保留濃郁肉香。特別添加關鍵「義大利蛋殼膜」生技精華，提供極致的關節軟骨營養，支撐犬貓每日跑跳與靈活行動力。", 
+                prices: { bag: 180, can: 825 } 
+            },
+            { 
+                id: 5, 
+                name: "極速鎖鮮 凍乾草飼牛 (加強版)", 
+                category: "lysine", 
+                badge: "🛡️ 離胺酸加強", 
+                imgCode: "heychewp5.jpg", 
+                summary: "專為台灣潮濕多雨氣候調配的免疫加強配方。將頂級紐西蘭草飼牛原型肉丁與高規格「離胺酸」完美融合，維持 1公克1塊 的精準餵食規格。香濃牛肉風味絕佳，有效幫助全齡毛孩提升日常對環境轉變的適應力與內在防護。", 
+                prices: { bag: 180, can: 825 } 
+            },
+            { 
+                id: 6, 
+                name: "舒壓溫和 宜蘭在地凍乾鴨肉 (加強版)", 
+                category: "lysine", 
+                badge: "🛡️ 離胺酸加強", 
+                imgCode: "heychewp6.jpg", 
+                summary: "精選鮮美低敏的宜蘭在地鴨肉原型，搭配溫和天然貓草。成分中深度注入高規「離胺酸」，特別針對容易哈啾、容易流眼淚的敏感體質犬貓進行深度的呼吸道與免疫調整，是美味與精準保養美學的終極結合。", 
+                prices: { bag: 180, can: 825 } 
+            }
         ];
 
         let cart = [];
@@ -592,10 +640,11 @@
             const item = cart.find(i => i.cartItemId === cartItemId);
             if (!item) return;
             item.quantity += amount;
-            if (item.quantity <= 0) cart = cart.filter(i => i.cartItemId === cartItemId);
+            if (item.quantity <= 0) cart = cart.filter(i => i.cartItemId !== cartItemId);
             updateCartDOM();
         }
 
+        // 移除購物車特定品項函數修正
         function removeItem(cartItemId) {
             cart = cart.filter(i => i.cartItemId !== cartItemId);
             updateCartDOM();
