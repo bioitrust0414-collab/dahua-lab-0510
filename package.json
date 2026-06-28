@@ -1,27 +1,13 @@
 {
-  "buildCommand": "pnpm install && pnpm build",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "regions": ["sin1"],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    }
-  ]
+  "name": "dahua-lab-0510",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite client",
+    "build": "vite build client",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
 }
