@@ -7,7 +7,7 @@
   "regions": ["sin1"],
   "functions": {
     "server/index.ts": {
-      "runtime": "nodejs24.x"
+      "runtime": "@vercel/node"
     }
   },
   "rewrites": [
